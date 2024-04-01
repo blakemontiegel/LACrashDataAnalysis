@@ -1,3 +1,7 @@
+DROP TABLE Crashes;
+DROP TABLE InvolvedParties;
+DROP TABLE Victims;
+
 CREATE TABLE Crashes
     (CaseID INTEGER NOT NULL,
     CrashDate DATE,
@@ -33,3 +37,19 @@ CREATE TABLE Victims
     PRIMARY KEY (VictimNumber),
     FOREIGN KEY (CaseID) REFERENCES Crashes(CaseID),
     FOREIGN KEY (PartyNumber) REFERENCES InvolvedParties(PartyNumber));
+
+INSERT INTO Crashes VALUES (${row['CASE_ID']}, ${row['CrashDate']}, ${row['CrashTime']},
+                            ${row['WeatherCondition1']}, ${row['WeatherCondition2']},
+                            ${row['CollisionSeverity']}, ${row['NumberInjured']},
+                            ${row['ViolationCategory']}, ${row['CollisionType']},
+                            ${row['City']});
+
+INSERT INTO InvolvedParties VALUES (${row['CaseID']}, ${row['PartyNumber']},
+                                    ${row['PartyType']}, ${row['AtFault']},
+                                    ${row['VehicleType']});
+
+INSERT INTO Victims VALUES (${row['CaseID']}, ${row['PartyNumber']},
+                            ${row['VictimNumber']}, ${row['VictimRole']},
+                            ${row['Gender']}, ${row['Age']},
+                            ${row['DegreeOfInjury']}, ${row['SafetyEquipment1']},
+                            ${row['SafetyEquipment2']});

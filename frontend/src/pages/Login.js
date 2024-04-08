@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
     const [username, setUsername] = useState('')
@@ -25,7 +26,9 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
             />
-            <button /*disabled={isLoading}*/>Log in</button>    
+            <Link to="/welcome">
+            <button>Log in</button>    
+            </Link>
                 
         </form>
     )

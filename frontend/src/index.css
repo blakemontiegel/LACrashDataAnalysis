@@ -1,12 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+/* layout */
+body {
+  background: #363636;
+  font-family: "Roboto Slab";
+}
+
 form.login {
-  max-width: 200px;
+  width: 500px;
   margin: 40px auto;
-  padding: 20px;
-  background: #fff;
+  padding: 40px;
   border-radius: 4px;
+  top: 50%;
+  left: 50%;
+  background: #d9d9d9;
+  text-align: center;
+}
+form.login input[type = "username"], form.login input[type = "password"] {
+  border:0;
+  display: block;
+  margin: 10px auto;
+  text-align: left;
+  border-radius: .25rem;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 10px 5px;
 }
 
 
 .welcome-page {
   text-align: center;
+}
+
+/* CSS */
+.button-6 {
+  align-items: center;
+  background-color: #a83232;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.button-6:hover,
+.button-6:focus {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+
+
+.button-6:active {
+  background-color: #F0F0F1;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
 }

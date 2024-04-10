@@ -20,7 +20,8 @@ const Results = () => {
                     <Link to='/query1'>
                         <span className="material-symbols-outlined" title='Back to Query 1 Page'>undo</span>
                     </Link> 
-                )}
+                )
+                }
                 {isQuery2Page && (
                     <Link to='/query2'>
                         <span className="material-symbols-outlined" title='Back to Query 2 Page'>undo</span>

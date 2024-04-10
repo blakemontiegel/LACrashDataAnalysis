@@ -84,9 +84,9 @@ const Query1 = () => {
                 <div className='selection'>
                     <h2>Vehicle Type: </h2>
                     {/* Crash Table */}
-                    <label><input type="checkbox" value="car" onChange={handleVehicleTypeChange} /> Car</label>
-                    <label><input type="checkbox" value="truck" onChange={handleVehicleTypeChange} /> Truck</label>
-                    <label><input type="checkbox" value="motorcycle" onChange={handleVehicleTypeChange} /> Motorcycle</label>
+                    <label><input type="checkbox" value="A" onChange={handleVehicleTypeChange} /> Car</label>
+                    <label><input type="checkbox" value="B" onChange={handleVehicleTypeChange} /> Truck</label>
+                    <label><input type="checkbox" value="C" onChange={handleVehicleTypeChange} /> Motorcycle</label>
                     {/* Add more checkboxes for other vehicle types */}
                 </div>
                 <div className='selection'>

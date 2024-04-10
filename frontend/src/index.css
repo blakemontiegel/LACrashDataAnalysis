@@ -1,75 +1,155 @@
+/* Import Roboto Slab font */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
-/* layout */
+
+/* Layout */
 body {
-  background: #363636;
-  font-family: "Roboto Slab";
+  background: #f0f0f1; /* Light gray background */
+  font-family: "Roboto Slab", sans-serif;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  text-align: center;
 }
 
+/* Login Style */
 form.login {
-  width: 500px;
-  margin: 40px auto;
-  padding: 40px;
-  border-radius: 4px;
-  top: 50%;
-  left: 50%;
-  background: #d9d9d9;
-  text-align: center;
-}
-form.login input[type = "username"], form.login input[type = "password"] {
-  border:0;
-  display: block;
-  margin: 10px auto;
-  text-align: left;
-  border-radius: .25rem;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  padding: 10px 5px;
+  max-width: 600px; /* Set maximum width */
+  margin: 60px auto; /* Center horizontally */
+  padding: 60px;
+  border-radius: 6px;
+  background: #fff;
 }
 
-
-.welcome-page {
-  text-align: center;
-}
-
-/* CSS */
-.button-6 {
-  align-items: center;
-  background-color: #a83232;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: .25rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+form.login input[type="username"],
+form.login input[type="password"] {
+  width: 100%;
+  margin: 15px 0; /* Adjust vertical margin */
+  padding: 15px 10px;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: .5rem;
   box-sizing: border-box;
-  color: rgba(0, 0, 0, 0.85);
+}
+
+/* Button/Icon Styles */
+.button {
+  background-color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: .5rem;
   cursor: pointer;
-  display: inline-flex;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  margin: 0;
-  min-height: 3rem;
-  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
-  position: relative;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 15px 30px; /* Adjust padding */
   text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
-  width: auto;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+.material-symbols-outlined {
+  font-weight: 700;
+  font-size: 40px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  text-decoration: none;
+  color: black;
+}
+.material-symbols-outlined:hover {
+  border-radius: 50%;
+  padding: 1px;
+  background-color: #636564; /* Darken on hover */
+  color: #fff; /* White text color */
 }
 
-.button-6:hover,
-.button-6:focus {
-  border-color: rgba(0, 0, 0, 0.15);
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-  color: rgba(0, 0, 0, 0.65);
+.button:hover,
+.button:focus {
+  background-color: #636564; /* Darken on hover */
+  border-color: rgba(0, 0, 0, 0.8);
+  color: #fff; /* White text color */
 }
 
+/*Page Layout */
+.page {
+  padding: 100px;
+}
 
+/* Query Cards */
+.query {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow */
+  padding: 20px;
+  color: rgb(0, 0, 0);
+}
 
-.button-6:active {
-  background-color: #F0F0F1;
-  border-color: rgba(0, 0, 0, 0.15);
-  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
-  color: rgba(0, 0, 0, 0.65);
-  transform: translateY(0);
+.query:hover {
+  background-color: #636564; /* Darken on hover */
+  border-color: rgba(0, 0, 0, 0.8);
+  color: #fff; /* White text color */
+}
+
+.query h2 {
+  margin-top: 0;
+  font-size: 20px; /* Increase font size */
+}
+
+/* Queries Container */
+.queries-container {
+  display: flex;
+  gap: 40px; /* Spacing between query cards */
+  font-size: 25px;
+}
+
+/* Link Styles */
+.link {
+  color: inherit;
+  text-decoration: none; /* Remove underline */
+}
+
+/* Welcome Text Styles */
+.page-text {
+  color: #333; /* Dark gray text color */
+}
+
+.page-text h1 {
+  font-size: 60px; /* Larger font size */
+  margin-bottom: 30px; /* Add some space below */
+}
+
+.page-text h2 {
+  font-size: 36px; /* Medium font size */
+}
+
+.page-text h3 {
+  margin-top: 120px;
+  font-size: 24px; /* Small font size */
+}
+
+/* Query 1 Page Layout*/
+/* Selection Section */
+.query1-page {
+  margin-top: 100px;
+}
+.selection {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow */
+  padding: 20px;
+  color: rgb(0, 0, 0);
+  margin-bottom: 20px;
+}
+
+.selection h2 {
+  margin-top: 0;
+  font-size: 30px; /* Increase font size */
+  margin-bottom: 10px; /* Add spacing below */
+}
+
+.selection label {
+  display: block;
+  margin-bottom: 10px; /* Add spacing between labels */
+}
+
+/* Selection Container */
+.selection-container {
+  padding: 100px;
+  display: flex;
+  gap: 40px; /* Spacing between selection cards */
+  justify-content: center; /* Horizontally center the container */
 }

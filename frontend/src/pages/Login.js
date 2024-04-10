@@ -7,7 +7,6 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
     }
 
     return (
@@ -27,7 +26,7 @@ const Login = () => {
                 value={password}
             />
             <Link to="/welcome">
-            <button className='button-6'>Login</button>    
+            <button className='button'>Login</button>    
             </Link>
                 
         </form>

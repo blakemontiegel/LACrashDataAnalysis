@@ -131,7 +131,7 @@ form.login input[type="password"] {
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow */
   padding: 20px;
-  color: rgb(0, 0, 0);
+  color: #333;
   margin-bottom: 20px;
 }
 
@@ -144,6 +144,9 @@ form.login input[type="password"] {
 .selection label {
   display: block;
   margin-bottom: 10px; /* Add spacing between labels */
+  font-size: 15px;
+  font-weight: 500;
+  margin: 20px;
 }
 
 /* Selection Container */

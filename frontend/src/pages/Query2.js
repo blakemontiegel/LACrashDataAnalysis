@@ -68,6 +68,7 @@ const Query2 = () => {
             </h2>
             </div>
             <div className='selection-container'>
+                {/*
                 <div className='selection'>
                 <h2>Collision Severity: </h2>
                     <label><input type="checkbox" value="1" onChange={handleCollisionSeverityChange} /> Fatal</label>
@@ -87,6 +88,7 @@ const Query2 = () => {
                     <label><input type="checkbox" value="H" onChange={handleCrashTypeChange} /> Other</label>
                     <label><input type="checkbox" value="--" onChange={handleCrashTypeChange} /> Not Stated</label>
                 </div>
+                */}
                 <div className='time-interval-container selection'>
                     <h2>Time Interval: </h2>
                     <div>

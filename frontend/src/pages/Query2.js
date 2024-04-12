@@ -5,8 +5,8 @@ const Query2 = () => {
     const navigate = useNavigate();
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
-    const [collisionSeverities, setCollisionSeverities] = useState([])
-    const [crashTypes, setCrashTypes] = useState([])
+    const [collisionSeverity, setCollisionSeverity] = useState('')
+    const [crashType, setCrashType] = useState('')
 
     const handleStartDateChange = (event) => {
         setStartDate(event.target.value)
@@ -19,38 +19,20 @@ const Query2 = () => {
         }
     }
 
-    const handleCollisionSeverityChange = (event) => {
-        const selectedCollisionSeverity = event.target.value
-        setCollisionSeverities(prevSeverities => {
-            if (prevSeverities.includes(selectedCollisionSeverity)) {
-                return prevSeverities.filter(severity => severity !== selectedCollisionSeverity)
-            } else {
-                return [...prevSeverities, selectedCollisionSeverity]
-            }
-        })
-    }
-
-    const handleCrashTypeChange = (event) => {
-        const selectedCrashType = event.target.value
-        setCrashTypes(prevCrashes => {
-            if (prevCrashes.includes(selectedCrashType)) {
-                return prevCrashes.filter(crash => crash !== selectedCrashType)
-            } else {
-                return [...prevCrashes, selectedCrashType]
-            }
-        })
-    }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const data = {
             startDate,
             endDate,
-            collisionSeverities,
-            crashTypes,
+            collisionSeverity,
+            crashType,
             fromQuery: 'query2'
         }
+        setStartDate('')
+        setEndDate('')
+        setCollisionSeverity('')
+        setCrashType('')
         navigate('/result', {
             state: { data }
         })
@@ -70,22 +52,21 @@ const Query2 = () => {
             <div className='selection-container'>
                 <div className='selection'>
                 <h2>Collision Severity: </h2>
-                    <label><input type="checkbox" value="1" onChange={handleCollisionSeverityChange} /> Fatal</label>
-                    <label><input type="checkbox" value="2" onChange={handleCollisionSeverityChange} /> Injury (Severe)</label>
-                    <label><input type="checkbox" value="3" onChange={handleCollisionSeverityChange} /> Injury (Other Visible)</label>
-                    <label><input type="checkbox" value="4" onChange={handleCollisionSeverityChange} /> Injury (Complaint of Pain)</label>
+                    <label><input type="radio" value="1" onChange={(event) => setCollisionSeverity(event.target.value)} /> Fatal</label>
+                    <label><input type="radio" value="2" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
+                    <label><input type="radio" value="3" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
+                    <label><input type="radio" value="4" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
                 </div>
                 <div className='selection'>
                     <h2>Crash Types: </h2>
-                    <label><input type="checkbox" value="A" onChange={handleCrashTypeChange} /> Head On</label>
-                    <label><input type="checkbox" value="B" onChange={handleCrashTypeChange} /> Sideswipe</label>
-                    <label><input type="checkbox" value="C" onChange={handleCrashTypeChange} /> Rear End</label>
-                    <label><input type="checkbox" value="D" onChange={handleCrashTypeChange} /> Broadside</label>
-                    <label><input type="checkbox" value="E" onChange={handleCrashTypeChange} /> Hit Object</label>
-                    <label><input type="checkbox" value="F" onChange={handleCrashTypeChange} /> Overturned</label>
-                    <label><input type="checkbox" value="G" onChange={handleCrashTypeChange} /> Vehicle/Pedestrian</label>
-                    <label><input type="checkbox" value="H" onChange={handleCrashTypeChange} /> Other</label>
-                    <label><input type="checkbox" value="--" onChange={handleCrashTypeChange} /> Not Stated</label>
+                    <label><input type="radio" value="A" onChange={(event) => setCrashType(event.target.value)} /> Head-On</label>
+                    <label><input type="radio" value="B" onChange={(event) => setCrashType(event.target.value)} /> Sideswipe</label>
+                    <label><input type="radio" value="C" onChange={(event) => setCrashType(event.target.value)} /> Rear End</label>
+                    <label><input type="radio" value="D" onChange={(event) => setCrashType(event.target.value)} /> Broadside</label>
+                    <label><input type="radio" value="E" onChange={(event) => setCrashType(event.target.value)} /> Hit Object</label>
+                    <label><input type="radio" value="F" onChange={(event) => setCrashType(event.target.value)} /> Overturned</label>
+                    <label><input type="radio" value="G" onChange={(event) => setCrashType(event.target.value)} /> Vehicle/Pedestrian</label>
+                    <label><input type="radio" value="H" onChange={(event) => setCrashType(event.target.value)} /> Other</label>
                 </div>
 
                 <div className='time-interval-container selection'>

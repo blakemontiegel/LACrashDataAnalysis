@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Query4 = () => {
     const navigate = useNavigate();
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
-    //const [collisionSeverities, setCollisionSeverities] = useState([])
-    //const [crashTypes, setCrashTypes] = useState([])
+    const [collisionSeverity, setCollisionSeverity] = useState('')
+    const [selectedCity, setSelectedCity] = useState('')
+    const [filteredCities, setFilteredCities] = useState([])
+    const [showDropdown, setShowDropdown] = useState(false)
+    const inputRef = useRef(null);
+
+    const allCities = [
+        "Alhambra", "Agoura Hills", "Arcadia", "Artesia", "Avalon", "Azusa", "Baldwin Park", "Bell", "Bell Gardens", "Bellflower",
+        "Beverly Hills", "Bradbury", "Burbank", "Calabasas", "Carson", "Cerritos", "Claremont", "Commerce", "Compton", "Covina",
+        "Cudahy", "Culver City", "Diamond Bar", "Downey", "Duarte", "El Monte", "El Segundo", "Gardena", "Glendale", "Glendora",
+        "Hawaiian Gardens", "Hawthorne", "Hermosa Beach", "Hidden Hills", "Huntington Park", "Industry", "Inglewood", "Irwindale",
+        "La Canada Flintridge", "La Habra Heights", "La Mirada", "La Puente", "La Verne", "Lakewood", "Lancaster", "Lawndale",
+        "Lomita", "Long Beach", "Los Angeles", "Lynwood", "Malibu", "Manhattan Beach", "Maywood", "Monrovia", "Montebello",
+        "Monterey Park", "Norwalk", "Palmdale", "Palos Verdes Estates", "Paramount", "Pasadena", "Pico Rivera", "Pomona",
+        "Rancho Palos Verdes", "Redondo Beach", "Rolling Hills", "Rolling Hills Estates", "Rosemead", "San Dimas", "San Fernando",
+        "San Gabriel", "San Marino", "Santa Clarita", "Santa Fe Springs", "Santa Monica", "Sierra Madre", "Signal Hill",
+        "South El Monte", "South Gate", "South Pasadena", "Temple City", "Torrance", "Vernon", "Walnut", "West Covina",
+        "West Hollywood", "Westlake Village", "Whittier"
+    ]
+    
 
     const handleStartDateChange = (event) => {
         setStartDate(event.target.value)
@@ -19,27 +37,21 @@ const Query4 = () => {
         }
     }
 
-    /*const handleCollisionSeverityChange = (event) => {
-        const selectedCollisionSeverity = event.target.value
-        setCollisionSeverities(prevSeverities => {
-            if (prevSeverities.includes(selectedCollisionSeverity)) {
-                return prevSeverities.filter(severity => severity !== selectedCollisionSeverity)
-            } else {
-                return [...prevSeverities, selectedCollisionSeverity]
-            }
-        })
+    const handleInputChange = (event) => {
+        const inputText = event.target.value
+        setSelectedCity(inputText)
+        const filtered = allCities.filter(city => 
+            city.toLowerCase().includes(inputText.toLowerCase())
+        )
+        setFilteredCities(filtered)
+        setShowDropdown(true)
     }
 
-    const handleCrashTypeChange = (event) => {
-        const selectedCrashType = event.target.value
-        setCrashTypes(prevCrashes => {
-            if (prevCrashes.includes(selectedCrashType)) {
-                return prevCrashes.filter(crash => crash !== selectedCrashType)
-            } else {
-                return [...prevCrashes, selectedCrashType]
-            }
-        })
-    } */
+    const handleCitySelect = (city) => {
+        setSelectedCity(city)
+        setShowDropdown(false)
+        setFilteredCities([])
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -47,15 +59,33 @@ const Query4 = () => {
         const data = {
             startDate,
             endDate,
-            //collisionSeverities,
-            //crashTypes,
+            collisionSeverity,
             fromQuery: 'query4'
         }
+        setStartDate('')
+        setEndDate('')
+        setCollisionSeverity('')
+        setSelectedCity('')
+        setFilteredCities([])
         navigate('/result', {
             state: { data }
-        })
-       
+        }) 
     }
+
+    const handleClickOutside = (event) => {
+        if(inputRef.current && !inputRef.current.contains(event.target)) {
+            setShowDropdown(false);
+        }
+    }
+
+    useEffect(() => {
+        setFilteredCities(allCities);
+
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+    }, [])
 
     return (
         <div className='page'>
@@ -68,27 +98,27 @@ const Query4 = () => {
             </h2>
             </div>
             <div className='selection-container'>
-                {/*
                 <div className='selection'>
                 <h2>Collision Severity: </h2>
-                    <label><input type="checkbox" value="1" onChange={handleCollisionSeverityChange} /> Fatal</label>
-                    <label><input type="checkbox" value="2" onChange={handleCollisionSeverityChange} /> Injury (Severe)</label>
-                    <label><input type="checkbox" value="3" onChange={handleCollisionSeverityChange} /> Injury (Other Visible)</label>
-                    <label><input type="checkbox" value="4" onChange={handleCollisionSeverityChange} /> Injury (Complaint of Pain)</label>
+                    <label><input type="radio" value="1" onChange={(event) => setCollisionSeverity(event.target.value)} /> Fatal</label>
+                    <label><input type="radio" value="2" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
+                    <label><input type="radio" value="3" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
+                    <label><input type="radio" value="4" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
                 </div>
                 <div className='selection'>
-                    <h2>Crash Types: </h2>
-                    <label><input type="checkbox" value="A" onChange={handleCrashTypeChange} /> Head On</label>
-                    <label><input type="checkbox" value="B" onChange={handleCrashTypeChange} /> Sideswipe</label>
-                    <label><input type="checkbox" value="C" onChange={handleCrashTypeChange} /> Rear End</label>
-                    <label><input type="checkbox" value="D" onChange={handleCrashTypeChange} /> Broadside</label>
-                    <label><input type="checkbox" value="E" onChange={handleCrashTypeChange} /> Hit Object</label>
-                    <label><input type="checkbox" value="F" onChange={handleCrashTypeChange} /> Overturned</label>
-                    <label><input type="checkbox" value="G" onChange={handleCrashTypeChange} /> Vehicle/Pedestrian</label>
-                    <label><input type="checkbox" value="H" onChange={handleCrashTypeChange} /> Other</label>
-                    <label><input type="checkbox" value="--" onChange={handleCrashTypeChange} /> Not Stated</label>
+                    <h2>Collision City: </h2>
+                    <div ref={inputRef}>
+                        <input type="text" value={selectedCity} onChange={handleInputChange} placeholder='Type or select a city' onClick={() => setShowDropdown(true)} className="city-input" />
+                        {showDropdown && (
+                            <ul className='city-dropdown'>
+                                {filteredCities.map((city, index) => (
+                                    <li key={index} onClick={() => handleCitySelect(city)}>{city}</li>
+                                ))}
+                            </ul>
+                        )}
+                        
+                    </div>
                 </div>
-                */}
                 <div className='time-interval-container selection'>
                     <h2>Time Interval: </h2>
                     <div>

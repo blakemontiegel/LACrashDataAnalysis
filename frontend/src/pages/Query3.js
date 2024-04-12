@@ -5,8 +5,6 @@ const Query3 = () => {
     const navigate = useNavigate();
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
-    //const [collisionSeverities, setCollisionSeverities] = useState([])
-    //const [crashTypes, setCrashTypes] = useState([])
 
     const handleStartDateChange = (event) => {
         setStartDate(event.target.value)
@@ -19,27 +17,6 @@ const Query3 = () => {
         }
     }
 
-    /*const handleCollisionSeverityChange = (event) => {
-        const selectedCollisionSeverity = event.target.value
-        setCollisionSeverities(prevSeverities => {
-            if (prevSeverities.includes(selectedCollisionSeverity)) {
-                return prevSeverities.filter(severity => severity !== selectedCollisionSeverity)
-            } else {
-                return [...prevSeverities, selectedCollisionSeverity]
-            }
-        })
-    }
-
-    const handleCrashTypeChange = (event) => {
-        const selectedCrashType = event.target.value
-        setCrashTypes(prevCrashes => {
-            if (prevCrashes.includes(selectedCrashType)) {
-                return prevCrashes.filter(crash => crash !== selectedCrashType)
-            } else {
-                return [...prevCrashes, selectedCrashType]
-            }
-        })
-    } */
 
     const handleSubmit = async (event) => {
         event.preventDefault();

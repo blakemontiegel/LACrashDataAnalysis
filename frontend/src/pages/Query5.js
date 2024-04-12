@@ -5,8 +5,7 @@ const Query5 = () => {
     const navigate = useNavigate();
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
-    //const [collisionSeverities, setCollisionSeverities] = useState([])
-    //const [crashTypes, setCrashTypes] = useState([])
+    const [pcfViolations, setPCFViolations] = useState([])
 
     const handleStartDateChange = (event) => {
         setStartDate(event.target.value)
@@ -19,27 +18,16 @@ const Query5 = () => {
         }
     }
 
-    /*const handleCollisionSeverityChange = (event) => {
-        const selectedCollisionSeverity = event.target.value
-        setCollisionSeverities(prevSeverities => {
-            if (prevSeverities.includes(selectedCollisionSeverity)) {
-                return prevSeverities.filter(severity => severity !== selectedCollisionSeverity)
+    const handlePCFViolationChange = (event) => {
+        const selectedPCFViolation = event.target.value
+        setPCFViolations(prevViolations => {
+            if (prevViolations.includes(selectedPCFViolation)) {
+                return prevViolations.filter(violation => violation !== selectedPCFViolation)
             } else {
-                return [...prevSeverities, selectedCollisionSeverity]
+                return [...prevViolations, selectedPCFViolation]
             }
         })
     }
-
-    const handleCrashTypeChange = (event) => {
-        const selectedCrashType = event.target.value
-        setCrashTypes(prevCrashes => {
-            if (prevCrashes.includes(selectedCrashType)) {
-                return prevCrashes.filter(crash => crash !== selectedCrashType)
-            } else {
-                return [...prevCrashes, selectedCrashType]
-            }
-        })
-    } */
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -47,10 +35,12 @@ const Query5 = () => {
         const data = {
             startDate,
             endDate,
-            //collisionSeverities,
-            //crashTypes,
+            pcfViolations,
             fromQuery: 'query5'
         }
+        setStartDate('')
+        setEndDate('')
+        setPCFViolations([])
         navigate('/result', {
             state: { data }
         })
@@ -68,27 +58,34 @@ const Query5 = () => {
             </h2>
             </div>
             <div className='selection-container'>
-                {/*
+                {
                 <div className='selection'>
                 <h2>Collision Severity: </h2>
-                    <label><input type="checkbox" value="1" onChange={handleCollisionSeverityChange} /> Fatal</label>
-                    <label><input type="checkbox" value="2" onChange={handleCollisionSeverityChange} /> Injury (Severe)</label>
-                    <label><input type="checkbox" value="3" onChange={handleCollisionSeverityChange} /> Injury (Other Visible)</label>
-                    <label><input type="checkbox" value="4" onChange={handleCollisionSeverityChange} /> Injury (Complaint of Pain)</label>
+                    <label><input type="checkbox" value="1" onChange={handlePCFViolationChange} /> Driving or Bicylcing Under the Influence of Alcohol or Drug</label>
+                    <label><input type="checkbox" value="2" onChange={handlePCFViolationChange} /> Impeding Traffic</label>
+                    <label><input type="checkbox" value="3" onChange={handlePCFViolationChange} /> Unsafe Speed</label>
+                    <label><input type="checkbox" value="4" onChange={handlePCFViolationChange} /> Following Too Closely</label>
+                    <label><input type="checkbox" value="5" onChange={handlePCFViolationChange} /> Wrong Side of Road</label>
+                    <label><input type="checkbox" value="6" onChange={handlePCFViolationChange} /> Improper Passing</label>
+                    <label><input type="checkbox" value="7" onChange={handlePCFViolationChange} /> Unsafe Lane Change</label>
+                    <label><input type="checkbox" value="8" onChange={handlePCFViolationChange} /> Improper Turning</label>
+                    <label><input type="checkbox" value="9" onChange={handlePCFViolationChange} /> Automobile Right of Way</label>
+                    <label><input type="checkbox" value="10" onChange={handlePCFViolationChange} /> Pedestrian Right of Way</label>
+                    <label><input type="checkbox" value="11" onChange={handlePCFViolationChange} /> Pedestrian Violation</label>
+                    <label><input type="checkbox" value="12" onChange={handlePCFViolationChange} /> Traffic Signals and Signs</label>
+                    <label><input type="checkbox" value="13" onChange={handlePCFViolationChange} /> Hazardous Parking</label>
+                    <label><input type="checkbox" value="14" onChange={handlePCFViolationChange} /> Lights</label>
+                    <label><input type="checkbox" value="15" onChange={handlePCFViolationChange} /> Brakes</label>
+                    <label><input type="checkbox" value="16" onChange={handlePCFViolationChange} /> Other Equipment</label>
+                    <label><input type="checkbox" value="17" onChange={handlePCFViolationChange} /> Other Hazardous Violation</label>
+                    <label><input type="checkbox" value="18" onChange={handlePCFViolationChange} /> Other Than Driver (or Pedestrian)</label>
+                    <label><input type="checkbox" value="21" onChange={handlePCFViolationChange} /> Unsafe Starting or Backing</label>
+                    <label><input type="checkbox" value="22" onChange={handlePCFViolationChange} /> Other Improper Driving</label>
+                    <label><input type="checkbox" value="23" onChange={handlePCFViolationChange} /> Pedestrian or Other Under the Influence of Alcohol or Drug</label>
+                    <label><input type="checkbox" value="24" onChange={handlePCFViolationChange} /> Fell Asleep</label>
+                    <label><input type="checkbox" value="0" onChange={handlePCFViolationChange} /> Unknown</label>
                 </div>
-                <div className='selection'>
-                    <h2>Crash Types: </h2>
-                    <label><input type="checkbox" value="A" onChange={handleCrashTypeChange} /> Head On</label>
-                    <label><input type="checkbox" value="B" onChange={handleCrashTypeChange} /> Sideswipe</label>
-                    <label><input type="checkbox" value="C" onChange={handleCrashTypeChange} /> Rear End</label>
-                    <label><input type="checkbox" value="D" onChange={handleCrashTypeChange} /> Broadside</label>
-                    <label><input type="checkbox" value="E" onChange={handleCrashTypeChange} /> Hit Object</label>
-                    <label><input type="checkbox" value="F" onChange={handleCrashTypeChange} /> Overturned</label>
-                    <label><input type="checkbox" value="G" onChange={handleCrashTypeChange} /> Vehicle/Pedestrian</label>
-                    <label><input type="checkbox" value="H" onChange={handleCrashTypeChange} /> Other</label>
-                    <label><input type="checkbox" value="--" onChange={handleCrashTypeChange} /> Not Stated</label>
-                </div>
-                */}
+                }
                 <div className='time-interval-container selection'>
                     <h2>Time Interval: </h2>
                     <div>

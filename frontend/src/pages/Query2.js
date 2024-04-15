@@ -22,6 +22,19 @@ const Query2 = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!collisionSeverity) {
+            alert('Please select a collision severity.');
+            return;
+        }
+        if (!crashType) {
+            alert('Please select a crash type.');
+            return;
+        }
+        if (!startDate || !endDate) {
+            alert('Please fill in the time interval.');
+            return;
+        }
+
         const data = {
             startDate,
             endDate,
@@ -58,7 +71,7 @@ const Query2 = () => {
                         <label><input type="radio" name="collision severity" value="Injury (Complaint of Pain)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
                 </div>
                 <div className='selection'>
-                    <h2>Crash Types: </h2>
+                    <h2>Crash Type: </h2>
                     <label><input type="radio" name="crash type" value="Head-on" onChange={(event) => setCrashType(event.target.value)} /> Head-On</label>
                     <label><input type="radio" name="crash type" value="Sideswipe" onChange={(event) => setCrashType(event.target.value)} /> Sideswipe</label>
                     <label><input type="radio" name="crash type" value="Rear end" onChange={(event) => setCrashType(event.target.value)} /> Rear End</label>

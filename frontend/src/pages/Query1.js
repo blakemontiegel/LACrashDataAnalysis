@@ -34,6 +34,23 @@ const Query1 = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (vehicleTypes.length === 0) {
+            alert('Please select at least one vehicle type.');
+            return;
+        }
+        if (!collisionSeverity) {
+            alert('Please select a collision severity.');
+            return;
+        }
+        if (!weatherCondition) {
+            alert('Please select a weather condition.');
+            return;
+        }
+        if (!startDate || !endDate) {
+            alert('Please fill in the time interval.');
+            return;
+        }
+
         const data = {
             startDate,
             endDate,

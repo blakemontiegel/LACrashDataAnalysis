@@ -56,6 +56,23 @@ const Query4 = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!collisionSeverity) {
+            alert('Please select a collision severity.');
+            return;
+        }
+        if (!selectedCity) {
+            alert('Please select a collision city.');
+            return;
+        }
+        if(!allCities.includes(selectedCity)) {
+            alert('Please enter a valid city.');
+            return;
+        }
+        if (!startDate || !endDate) {
+            alert('Please fill in the time interval.');
+            return;
+        }
+
         const data = {
             startDate,
             endDate,

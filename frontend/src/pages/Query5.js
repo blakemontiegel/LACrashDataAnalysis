@@ -32,6 +32,11 @@ const Query5 = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (pcfViolations.length === 0) {
+            alert('Please select at least one pcf violation.');
+            return;
+        }
+
         const data = {
             startDate,
             endDate,

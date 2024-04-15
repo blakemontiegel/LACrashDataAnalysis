@@ -35,6 +35,15 @@ const Query3 = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!initialTime || !finalTime) {
+            alert('Please fill in the collision time.');
+            return;
+        }
+        if (!startDate || !endDate) {
+            alert('Please fill in the time interval.');
+            return;
+        }
+
         const data = {
             startDate,
             endDate,

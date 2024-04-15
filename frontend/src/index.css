@@ -127,14 +127,14 @@ form.login input[type="password"] {
   margin-top: 100px;
 }
 .selection {
-  max-height: 500px;
-  overflow-y: auto;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow */
   padding: 20px;
   color: #333;
   margin-bottom: 20px;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 
@@ -184,3 +184,50 @@ form.login input[type="password"] {
 .city-dropdown li:hover {
   background-color: #f0f0f1; /* Light gray background on hover */
 }
+
+/* Results Page Layout */
+.results-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Make the container take up the full height of the viewport */
+  padding: 0 20px; /* Add padding to the sides */
+}
+
+.selected-conditions {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  color: #333;
+  width: 300px; /* Set a fixed width */
+  margin-bottom: 20px; /* Add space between selected conditions and graph */
+}
+.selected-conditions h2,
+.selected-conditions h3 {
+  margin-top: 0; /* Remove default margin */
+  margin-bottom: 10px; /* Add a custom margin */
+}
+
+.graph-section {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  color: #333;
+  flex: 1; /* Take up remaining space */
+  display: flex;
+  justify-content: center; /* Center the graph horizontally */
+  align-items: center; /* Center the graph vertically */
+}
+
+.data-section {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  color: #333;
+  flex: 0 0 300px; /* Set a fixed width */
+  margin-left: auto; /* Align to the right */
+  margin-bottom: 20px; /* Add space between data section and graph */
+}
+

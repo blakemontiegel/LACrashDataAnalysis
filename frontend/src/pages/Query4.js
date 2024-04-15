@@ -60,6 +60,7 @@ const Query4 = () => {
             startDate,
             endDate,
             collisionSeverity,
+            selectedCity,
             fromQuery: 'query4'
         }
         setStartDate('')
@@ -100,10 +101,10 @@ const Query4 = () => {
             <div className='selection-container'>
                 <div className='selection'>
                 <h2>Collision Severity: </h2>
-                    <label><input type="radio" value="1" onChange={(event) => setCollisionSeverity(event.target.value)} /> Fatal</label>
-                    <label><input type="radio" value="2" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
-                    <label><input type="radio" value="3" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
-                    <label><input type="radio" value="4" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
+                        <label><input type="radio" name="collision severity" value="Fatal" onChange={(event) => setCollisionSeverity(event.target.value)} /> Fatal</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Severe)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Other Visible)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Complaint of Pain)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
                 </div>
                 <div className='selection'>
                     <h2>Collision City: </h2>

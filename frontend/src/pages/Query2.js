@@ -46,27 +46,27 @@ const Query2 = () => {
                 <span className="material-symbols-outlined" title='Back to Welcome Page'>undo</span>
                 </Link> 
             <h2>
-                Examine the relationship between crash severity levels (minor, moderate, severe, fatal) and types (rear-end, side-impact, pedestrian-involved etc.) in order to identify conditions that most frequently lead to severe outcomes
+                Examine the relationship between crash severity levels (minor, moderate, severe, fatal) and types (rear-end, side-impact, pedestrian-involved etc.) in order to identify conditions that most frequently lead to severe outcomes.
             </h2>
             </div>
             <div className='selection-container'>
                 <div className='selection'>
                 <h2>Collision Severity: </h2>
-                    <label><input type="radio" value="1" onChange={(event) => setCollisionSeverity(event.target.value)} /> Fatal</label>
-                    <label><input type="radio" value="2" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
-                    <label><input type="radio" value="3" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
-                    <label><input type="radio" value="4" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
+                        <label><input type="radio" name="collision severity" value="Fatal" onChange={(event) => setCollisionSeverity(event.target.value)} /> Fatal</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Severe)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Other Visible)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Complaint of Pain)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
                 </div>
                 <div className='selection'>
                     <h2>Crash Types: </h2>
-                    <label><input type="radio" value="A" onChange={(event) => setCrashType(event.target.value)} /> Head-On</label>
-                    <label><input type="radio" value="B" onChange={(event) => setCrashType(event.target.value)} /> Sideswipe</label>
-                    <label><input type="radio" value="C" onChange={(event) => setCrashType(event.target.value)} /> Rear End</label>
-                    <label><input type="radio" value="D" onChange={(event) => setCrashType(event.target.value)} /> Broadside</label>
-                    <label><input type="radio" value="E" onChange={(event) => setCrashType(event.target.value)} /> Hit Object</label>
-                    <label><input type="radio" value="F" onChange={(event) => setCrashType(event.target.value)} /> Overturned</label>
-                    <label><input type="radio" value="G" onChange={(event) => setCrashType(event.target.value)} /> Vehicle/Pedestrian</label>
-                    <label><input type="radio" value="H" onChange={(event) => setCrashType(event.target.value)} /> Other</label>
+                    <label><input type="radio" name="crash type" value="Head-on" onChange={(event) => setCrashType(event.target.value)} /> Head-On</label>
+                    <label><input type="radio" name="crash type" value="Sideswipe" onChange={(event) => setCrashType(event.target.value)} /> Sideswipe</label>
+                    <label><input type="radio" name="crash type" value="Rear end" onChange={(event) => setCrashType(event.target.value)} /> Rear End</label>
+                    <label><input type="radio" name="crash type" value="Broadside" onChange={(event) => setCrashType(event.target.value)} /> Broadside</label>
+                    <label><input type="radio" name="crash type" value="Hit Object" onChange={(event) => setCrashType(event.target.value)} /> Hit Object</label>
+                    <label><input type="radio" name="crash type" value="Overturned" onChange={(event) => setCrashType(event.target.value)} /> Overturned</label>
+                    <label><input type="radio" name="crash type" value="Vehicle/Pedestrian" onChange={(event) => setCrashType(event.target.value)} /> Vehicle/Pedestrian</label>
+                    <label><input type="radio" name="crash type" value="Other" onChange={(event) => setCrashType(event.target.value)} /> Other</label>
                 </div>
 
                 <div className='time-interval-container selection'>

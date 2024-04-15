@@ -67,38 +67,38 @@ const Query1 = () => {
             <div className='selection-container'>
                 <div className='selection'>
                     <h2>Vehicle Type: </h2>
-                    <label><input type="checkbox" value="A" onChange={handleVehicleTypeChange} /> Passenger Car/Station Wagon</label>
-                    <label><input type="checkbox" value="B" onChange={handleVehicleTypeChange} /> Passenger Car with Trailer</label>
-                    <label><input type="checkbox" value="C" onChange={handleVehicleTypeChange} /> Motorcycle/Scooter</label>
-                    <label><input type="checkbox" value="D" onChange={handleVehicleTypeChange} /> Pickup or Panel Truck</label>
-                    <label><input type="checkbox" value="E" onChange={handleVehicleTypeChange} /> Pickup or Panel Truck with Trailer</label>
-                    <label><input type="checkbox" value="F" onChange={handleVehicleTypeChange} /> Truck or Truck Tractor</label>
-                    <label><input type="checkbox" value="G" onChange={handleVehicleTypeChange} /> Truck or Truck Tractor with Trailer</label>
-                    <label><input type="checkbox" value="H" onChange={handleVehicleTypeChange} /> Schoolbus</label>
-                    <label><input type="checkbox" value="I" onChange={handleVehicleTypeChange} /> Other Bus</label>
-                    <label><input type="checkbox" value="J" onChange={handleVehicleTypeChange} /> Emergency Vehicle</label>
-                    <label><input type="checkbox" value="K" onChange={handleVehicleTypeChange} /> Highway Construction Equipment</label>
-                    <label><input type="checkbox" value="L" onChange={handleVehicleTypeChange} /> Bicycle</label>
-                    <label><input type="checkbox" value="O" onChange={handleVehicleTypeChange} /> Moped</label>
-                    <label><input type="checkbox" value="N" onChange={handleVehicleTypeChange} /> Pedestrian</label>
-                    <label><input type="checkbox" value="M" onChange={handleVehicleTypeChange} /> Other Vehicle</label>
+                    <label><input type="checkbox" value="Passenger Car/Station Wagon" onChange={handleVehicleTypeChange} /> Passenger Car/Station Wagon</label>
+                    <label><input type="checkbox" value="Passenger Car with Trailer" onChange={handleVehicleTypeChange} /> Passenger Car with Trailer</label>
+                    <label><input type="checkbox" value="Motorcycle/Scooter" onChange={handleVehicleTypeChange} /> Motorcycle/Scooter</label>
+                    <label><input type="checkbox" value="Pickup or Panel Truck" onChange={handleVehicleTypeChange} /> Pickup or Panel Truck</label>
+                    <label><input type="checkbox" value="Pickup or Panel Truck with Trailer" onChange={handleVehicleTypeChange} /> Pickup or Panel Truck with Trailer</label>
+                    <label><input type="checkbox" value="Truck or Truck Tractor" onChange={handleVehicleTypeChange} /> Truck or Truck Tractor</label>
+                    <label><input type="checkbox" value="Truck or Truck Tractor with Trailer" onChange={handleVehicleTypeChange} /> Truck or Truck Tractor with Trailer</label>
+                    <label><input type="checkbox" value="Schoolbus" onChange={handleVehicleTypeChange} /> Schoolbus</label>
+                    <label><input type="checkbox" value="Other Bus" onChange={handleVehicleTypeChange} /> Other Bus</label>
+                    <label><input type="checkbox" value="Emergency Vehicle" onChange={handleVehicleTypeChange} /> Emergency Vehicle</label>
+                    <label><input type="checkbox" value="Highway Construction Equipment" onChange={handleVehicleTypeChange} /> Highway Construction Equipment</label>
+                    <label><input type="checkbox" value="Bicycle" onChange={handleVehicleTypeChange} /> Bicycle</label>
+                    <label><input type="checkbox" value="Moped" onChange={handleVehicleTypeChange} /> Moped</label>
+                    <label><input type="checkbox" value="Pedestrian" onChange={handleVehicleTypeChange} /> Pedestrian</label>
+                    <label><input type="checkbox" value="Other Vehicle" onChange={handleVehicleTypeChange} /> Other Vehicle</label>
                 </div>
                 <div className='selection'>
                     <h2>Collision Severity: </h2>
-                        <label><input type="radio" value="1" onChange={(event) => setCollisionSeverity(event.target.value)} /> Fatal</label>
-                        <label><input type="radio" value="2" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
-                        <label><input type="radio" value="3" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
-                        <label><input type="radio" value="4" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
+                        <label><input type="radio" name="collision severity" value="Fatal" onChange={(event) => setCollisionSeverity(event.target.value)} /> Fatal</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Severe)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Other Visible)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Complaint of Pain)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
                 </div>
                 <div className='selection'>
-                    <h2>Weather weatherConditions: </h2>
-                    <label><input type="radio" value="A" onChange={(event) => setWeatherCondition(event.target.value)} /> Clear</label>
-                    <label><input type="radio" value="B" onChange={(event) => setWeatherCondition(event.target.value)} /> Cloudy</label>
-                    <label><input type="radio" value="C" onChange={(event) => setWeatherCondition(event.target.value)} /> Raining</label>
-                    <label><input type="radio" value="D" onChange={(event) => setWeatherCondition(event.target.value)} /> Snowing</label>
-                    <label><input type="radio" value="E" onChange={(event) => setWeatherCondition(event.target.value)} /> Fog</label>
-                    <label><input type="radio" value="G" onChange={(event) => setWeatherCondition(event.target.value)} /> Wind</label>
-                    <label><input type="radio" value="F" onChange={(event) => setWeatherCondition(event.target.value)} /> Other</label>
+                    <h2>Weather Conditions: </h2>
+                    <label><input type="radio" name="weather" value="Clear" onChange={(event) => setWeatherCondition(event.target.value)} /> Clear</label>
+                    <label><input type="radio" name="weather" value="Cloudy" onChange={(event) => setWeatherCondition(event.target.value)} /> Cloudy</label>
+                    <label><input type="radio" name="weather" value="Raining" onChange={(event) => setWeatherCondition(event.target.value)} /> Raining</label>
+                    <label><input type="radio" name="weather" value="Snowing" onChange={(event) => setWeatherCondition(event.target.value)} /> Snowing</label>
+                    <label><input type="radio" name="weather" value="Fog" onChange={(event) => setWeatherCondition(event.target.value)} /> Fog</label>
+                    <label><input type="radio" name="weather" value="Wind" onChange={(event) => setWeatherCondition(event.target.value)} /> Wind</label>
+                    <label><input type="radio" name="weather" value="Other" onChange={(event) => setWeatherCondition(event.target.value)} /> Other</label>
                 </div>
                 <div className='time-interval-container selection'>
                     <h2>Time Interval: </h2>

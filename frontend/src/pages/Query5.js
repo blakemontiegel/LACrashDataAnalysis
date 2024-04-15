@@ -50,7 +50,7 @@ const Query5 = () => {
     return (
         <div className='page'>
             <div className='page-text'>
-                <Link to='/welcome'>
+                <Link to='/'>
                 <span className="material-symbols-outlined" title='Back to Welcome Page'>undo</span>
                 </Link> 
             <h2>

@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 const Results = () => {
     const location = useLocation()
     const { data } = location.state || {}
-    const { vehicleTypes, collisionSeverities, weatherCondition, fromQuery, startDate,
+    const { vehicleTypes, collisionSeverities, singleCollisionSeverity, weatherCondition, fromQuery, startDate,
         endDate, crashType, initialTime, finalTime, selectedCity1, selectedCity2, pcfViolations } = data || {}
 
     const isQuery1Page = fromQuery === 'query1'
@@ -23,7 +23,7 @@ const Results = () => {
 
         const fetchGraphData = async () => {
             try {
-                const response = await fetch(`/api/graphs?fromQuery=${fromQuery}&startDate=${startDate}&endDate=${endDate}&collisionSeverities=${collisionSeveritiesString}&weatherCondition=${weatherCondition}&crashType=${crashType}&initialTime=${initialTime}&finalTime=${finalTime}&selectedCity1=${selectedCity1}&selectedCity2=${selectedCity2}&vehicleTypes=${vehicleTypesString}&pcfViolations=${pcfViolationsString}`)
+                const response = await fetch(`/api/graphs?fromQuery=${fromQuery}&startDate=${startDate}&endDate=${endDate}&collisionSeverities=${collisionSeveritiesString}&singleCollisionSeverity=${singleCollisionSeverity}&weatherCondition=${weatherCondition}&crashType=${crashType}&initialTime=${initialTime}&finalTime=${finalTime}&selectedCity1=${selectedCity1}&selectedCity2=${selectedCity2}&vehicleTypes=${vehicleTypesString}&pcfViolations=${pcfViolationsString}`)
                 if(!response.ok) {
                     throw new Error('Failed to fetch graph data')
                 }
@@ -64,9 +64,7 @@ const Results = () => {
                             </p>
                             <h3>-Collision Severity:</h3>
                             <p>
-                                {collisionSeverities.map((type, index) => (
-                                    <li key={index}>{type}</li>
-                                ))}
+                                {singleCollisionSeverity}
                             </p>
                             <h3>-Weather Condition:</h3>
                             <p>
@@ -179,9 +177,7 @@ const Results = () => {
                             <h2>Selected Conditions: </h2>
                             <h3>-Collision Severity:</h3>
                             <p>
-                                {collisionSeverities.map((type, index) => (
-                                    <li key={index}>{type}</li>
-                                ))}
+                                {singleCollisionSeverity}
                             </p>
                             <h3>-Collision City:</h3>
                             <p>

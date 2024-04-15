@@ -6,7 +6,7 @@ const Query1 = () => {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [vehicleTypes, setVehicleTypes] = useState([])
-    const [collisionSeverity, setCollisionSeverity] = useState('')
+    const [singleCollisionSeverity, setSingleCollisionSeverity] = useState('')
     const [weatherCondition, setWeatherCondition] = useState('')
 
     const handleStartDateChange = (event) => {
@@ -38,7 +38,7 @@ const Query1 = () => {
             alert('Please select at least one vehicle type.');
             return;
         }
-        if (!collisionSeverity) {
+        if (!singleCollisionSeverity) {
             alert('Please select a collision severity.');
             return;
         }
@@ -55,14 +55,14 @@ const Query1 = () => {
             startDate,
             endDate,
             vehicleTypes,
-            collisionSeverity,
+            singleCollisionSeverity,
             weatherCondition,
             fromQuery: 'query1'
         }
         setStartDate('')
         setEndDate('')
         setVehicleTypes('')
-        setCollisionSeverity('')
+        setSingleCollisionSeverity('')
         setWeatherCondition('')
         navigate('/result', {
             state: { data }
@@ -102,10 +102,10 @@ const Query1 = () => {
                 </div>
                 <div className='selection'>
                     <h2>Collision Severity: </h2>
-                        <label><input type="radio" name="collision severity" value="Fatal" onChange={(event) => setCollisionSeverity(event.target.value)} /> Fatal</label>
-                        <label><input type="radio" name="collision severity" value="Injury (Severe)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
-                        <label><input type="radio" name="collision severity" value="Injury (Other Visible)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
-                        <label><input type="radio" name="collision severity" value="Injury (Complaint of Pain)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
+                        <label><input type="radio" name="collision severity" value="Fatal" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Fatal</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Severe)" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Other Visible)" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
+                        <label><input type="radio" name="collision severity" value="Injury (Complaint of Pain)" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
                 </div>
                 <div className='selection'>
                     <h2>Weather Conditions: </h2>

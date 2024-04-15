@@ -6,10 +6,14 @@ const Query4 = () => {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [collisionSeverity, setCollisionSeverity] = useState('')
-    const [selectedCity, setSelectedCity] = useState('')
-    const [filteredCities, setFilteredCities] = useState([])
-    const [showDropdown, setShowDropdown] = useState(false)
-    const inputRef = useRef(null);
+    const [selectedCity1, setSelectedCity1] = useState('')
+    const [selectedCity2, setSelectedCity2] = useState('')
+    const [filteredCities1, setFilteredCities1] = useState([])
+    const [filteredCities2, setFilteredCities2] = useState([])
+    const [showDropdown1, setShowDropdown1] = useState(false)
+    const [showDropdown2, setShowDropdown2] = useState(false)
+    const inputRef1 = useRef(null);
+    const inputRef2 = useRef(null);
 
     const allCities = [
         "Alhambra", "Agoura Hills", "Arcadia", "Artesia", "Avalon", "Azusa", "Baldwin Park", "Bell", "Bell Gardens", "Bellflower",
@@ -37,20 +41,35 @@ const Query4 = () => {
         }
     }
 
-    const handleInputChange = (event) => {
+    const handleInputChange1 = (event) => {
         const inputText = event.target.value
-        setSelectedCity(inputText)
+        setSelectedCity1(inputText)
         const filtered = allCities.filter(city => 
             city.toLowerCase().includes(inputText.toLowerCase())
         )
-        setFilteredCities(filtered)
-        setShowDropdown(true)
+        setFilteredCities1(filtered)
+        setShowDropdown1(true)
     }
 
-    const handleCitySelect = (city) => {
-        setSelectedCity(city)
-        setShowDropdown(false)
-        setFilteredCities([])
+    const handleInputChange2 = (event) => {
+        const inputText = event.target.value
+        setSelectedCity2(inputText)
+        const filtered = allCities.filter(city => 
+            city.toLowerCase().includes(inputText.toLowerCase())
+        )
+        setFilteredCities2(filtered)
+        setShowDropdown2(true)
+    }
+
+    const handleCitySelect1 = (city) => {
+        setSelectedCity1(city)
+        setShowDropdown1(false)
+        setFilteredCities1([])
+    }
+    const handleCitySelect2 = (city) => {
+        setSelectedCity2(city)
+        setShowDropdown2(false)
+        setFilteredCities2([])
     }
 
     const handleSubmit = async (event) => {
@@ -60,11 +79,15 @@ const Query4 = () => {
             alert('Please select a collision severity.');
             return;
         }
-        if (!selectedCity) {
+        if (!selectedCity1) {
             alert('Please select a collision city.');
             return;
         }
-        if(!allCities.includes(selectedCity)) {
+        if (!selectedCity2) {
+            alert('Please select a collision city.');
+            return;
+        }
+        if(!allCities.includes(selectedCity1) || !allCities.includes(selectedCity2)) {
             alert('Please enter a valid city.');
             return;
         }
@@ -77,31 +100,48 @@ const Query4 = () => {
             startDate,
             endDate,
             collisionSeverity,
-            selectedCity,
+            selectedCity1,
+            selectedCity2,
             fromQuery: 'query4'
         }
         setStartDate('')
         setEndDate('')
         setCollisionSeverity('')
-        setSelectedCity('')
-        setFilteredCities([])
+        setSelectedCity1('')
+        setSelectedCity2('')
+        setFilteredCities1([])
+        setFilteredCities2([])
         navigate('/result', {
             state: { data }
         }) 
     }
 
-    const handleClickOutside = (event) => {
-        if(inputRef.current && !inputRef.current.contains(event.target)) {
-            setShowDropdown(false);
+    const handleClickOutside1 = (event) => {
+        if(inputRef1.current && !inputRef1.current.contains(event.target)) {
+            setShowDropdown1(false);
+        }
+    }
+    const handleClickOutside2 = (event) => {
+        if(inputRef2.current && !inputRef2.current.contains(event.target)) {
+            setShowDropdown2(false);
         }
     }
 
     useEffect(() => {
-        setFilteredCities(allCities);
+        setFilteredCities1(allCities);
 
-        document.addEventListener("mousedown", handleClickOutside)
+        document.addEventListener("mousedown", handleClickOutside1)
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside)
+            document.removeEventListener("mousedown", handleClickOutside1)
+        }
+    }, [])
+
+    useEffect(() => {
+        setFilteredCities2(allCities);
+
+        document.addEventListener("mousedown", handleClickOutside2)
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside2)
         }
     }, [])
 
@@ -116,6 +156,7 @@ const Query4 = () => {
             </h2>
             </div>
             <div className='selection-container'>
+            
                 <div className='selection'>
                 <h2>Collision Severity: </h2>
                         <label><input type="radio" name="collision severity" value="Fatal" onChange={(event) => setCollisionSeverity(event.target.value)} /> Fatal</label>
@@ -124,18 +165,30 @@ const Query4 = () => {
                         <label><input type="radio" name="collision severity" value="Injury (Complaint of Pain)" onChange={(event) => setCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
                 </div>
                 <div className='selection'>
-                    <h2>Collision City: </h2>
-                    <div ref={inputRef}>
-                        <input type="text" value={selectedCity} onChange={handleInputChange} placeholder='Type or select a city' onClick={() => setShowDropdown(true)} className="city-input" />
-                        {showDropdown && (
+                    <h2>Collision City 1: </h2>
+                    <div ref={inputRef1}>
+                        <input type="text" value={selectedCity1} onChange={handleInputChange1} placeholder='Type or select a city' onClick={() => setShowDropdown1(true)} className="city-input" />
+                        {showDropdown1 && (
                             <ul className='city-dropdown'>
-                                {filteredCities.map((city, index) => (
-                                    <li key={index} onClick={() => handleCitySelect(city)}>{city}</li>
+                                {filteredCities1.map((city, index) => (
+                                    <li key={index} onClick={() => handleCitySelect1(city)}>{city}</li>
                                 ))}
                             </ul>
                         )}
-                        
-                    </div>
+                </div>
+                </div>
+                <div className='selection'>
+                    <h2>Collision City 2: </h2>
+                    <div ref={inputRef2}>
+                        <input type="text" value={selectedCity2} onChange={handleInputChange2} placeholder='Type or select a city' onClick={() => setShowDropdown2(true)} className="city-input" />
+                        {showDropdown2 && (
+                            <ul className='city-dropdown'>
+                                {filteredCities2.map((city, index) => (
+                                    <li key={index} onClick={() => handleCitySelect2(city)}>{city}</li>
+                                ))}
+                            </ul>
+                        )}
+                </div>
                 </div>
                 <div className='time-interval-container selection'>
                     <h2>Time Interval: </h2>

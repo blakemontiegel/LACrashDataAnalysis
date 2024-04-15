@@ -14,26 +14,27 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/graphs', (req, res) => {
-    const { vehicleTypes, collisionSeverity, weatherCondition, fromQuery, startDate,
-        endDate, crashType, initialTime, finalTime, selectedCity, pcfViolations } = req.query;
+    const { vehicleTypes, collisionSeverities, weatherCondition, fromQuery, startDate,
+        endDate, crashType, initialTime, finalTime, selectedCity1, selectedCity2, pcfViolations } = req.query;
 
         let pythonScriptPath;
         let scriptArgs = [];
         const parsedVehicleTypes = JSON.parse(vehicleTypes);
         const parsedPcfViolations = JSON.parse(pcfViolations);
+        const parsedCollisionSeverities = JSON.parse(collisionSeverities);
 
         if(fromQuery === 'query1') {
             //pythonScriptPath = 'path/to/query1_script.py';
-            scriptArgs[startDate, endDate, parsedVehicleTypes, collisionSeverity, weatherCondition];
+            scriptArgs[startDate, endDate, parsedVehicleTypes, parsedCollisionSeverities, weatherCondition];
         }else if(fromQuery === 'query2') {
             //pythonScriptPath = 'path/to/query2_script.py';
-            scriptArgs[startDate, endDate, collisionSeverity, crashType];
+            scriptArgs[startDate, endDate, parsedCollisionSeverities, crashType];
         }else if(fromQuery === 'query3') {
             //pythonScriptPath = 'path/to/query3_script.py';
             scriptArgs[startDate, endDate, parsedVehicleTypes, initialTime, finalTime];
         }else if(fromQuery === 'query4') {
             //pythonScriptPath = 'path/to/query4_script.py';
-            scriptArgs[startDate, endDate, collisionSeverity, selectedCity];
+            scriptArgs[startDate, endDate, parsedCollisionSeverities, selectedCity1, selectedCity2];
         }else if(fromQuery === 'query5') {
             //pythonScriptPath = 'path/to/query5_script.py';
             scriptArgs[startDate, endDate, parsedPcfViolations];

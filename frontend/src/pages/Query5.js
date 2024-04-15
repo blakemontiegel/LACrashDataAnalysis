@@ -65,7 +65,7 @@ const Query5 = () => {
             <div className='selection-container'>
                 {
                 <div className='selection'>
-                <h2>Collision Severity: </h2>
+                <h2>PCF Violations: </h2>
                     <label><input type="checkbox" value="Driving or Bicycling Under the Influence of Alcohol or Drug" onChange={handlePCFViolationChange} /> Driving or Bicycling Under the Influence of Alcohol or Drug</label>
                     <label><input type="checkbox" value="Impeding Traffic" onChange={handlePCFViolationChange} /> Impeding Traffic</label>
                     <label><input type="checkbox" value="Unsafe speed" onChange={handlePCFViolationChange} /> Unsafe Speed</label>

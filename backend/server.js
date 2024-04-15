@@ -13,7 +13,45 @@ app.get('/', (req, res) => {
     res.send('Hello World')
 })
 
-async function initDatabase() {
+app.get('/api/graphs', (req, res) => {
+    const { vehicleTypes, collisionSeverity, weatherCondition, fromQuery, startDate,
+        endDate, crashType, initialTime, finalTime, selectedCity, pcfViolations } = req.query;
+
+        let pythonScriptPath;
+        let scriptArgs = [];
+        const parsedVehicleTypes = JSON.parse(vehicleTypes);
+        const parsedPcfViolations = JSON.parse(pcfViolations);
+
+        if(fromQuery === 'query1') {
+            //pythonScriptPath = 'path/to/query1_script.py';
+            scriptArgs[startDate, endDate, parsedVehicleTypes, collisionSeverity, weatherCondition];
+        }else if(fromQuery === 'query2') {
+            //pythonScriptPath = 'path/to/query2_script.py';
+            scriptArgs[startDate, endDate, collisionSeverity, crashType];
+        }else if(fromQuery === 'query3') {
+            //pythonScriptPath = 'path/to/query3_script.py';
+            scriptArgs[startDate, endDate, parsedVehicleTypes, initialTime, finalTime];
+        }else if(fromQuery === 'query4') {
+            //pythonScriptPath = 'path/to/query4_script.py';
+            scriptArgs[startDate, endDate, collisionSeverity, selectedCity];
+        }else if(fromQuery === 'query5') {
+            //pythonScriptPath = 'path/to/query5_script.py';
+            scriptArgs[startDate, endDate, parsedPcfViolations];
+        }
+
+        const pythonProcess = spawn('python', [pythonScriptPath, ...scriptArgs]);
+
+        pythonProcess.stdout('data', (data) => {
+            res.send(data);
+        });
+
+        pythonProcess.stderr.on('data', (data) => {
+            console.error('Error executing Python script: ${data}');
+            res.status(500).json({error: 'Internal server error'});
+        });
+});
+
+/*async function initDatabase() {
     const dbConfig = {
         user: 'zhouxiangyu',
         password: 'p0WhwSbo4P7ROmyZ0c3eszbM',
@@ -120,7 +158,7 @@ app.get('/tableName', (req, res) => {
         .catch(err => {
             res.send(err);
         })
-})
+}) */
 
 app.listen(process.env.PORT, () => {
     console.log('listening to port', process.env.PORT);

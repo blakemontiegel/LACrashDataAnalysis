@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Results = () => {
@@ -12,6 +12,33 @@ const Results = () => {
     const isQuery3Page = fromQuery === 'query3'
     const isQuery4Page = fromQuery === 'query4'
     const isQuery5Page = fromQuery === 'query5'
+
+    const [graphData, setGraphData] = useState(null)
+
+    useEffect(() => {
+        // Frontend: Serialize the array into a string
+        const vehicleTypesString = JSON.stringify(vehicleTypes)
+        const pcfViolationsString = JSON.stringify(pcfViolations)
+
+
+
+        const fetchGraphData = async () => {
+            try {
+                const response = await fetch(`/api/graphs?fromQuery=${fromQuery}&startDate=${startDate}&endDate=${endDate}&collisionSeverity=${collisionSeverity}&weatherCondition=${weatherCondition}&crashType=${crashType}&initialTime=${initialTime}&finalTime=${finalTime}&selectedCity=${selectedCity}&vehicleTypes=${vehicleTypesString}&pcfViolations=${pcfViolationsString}`)
+                if(!response.ok) {
+                    throw new Error('Failed to fetch graph data')
+                }
+
+                const graphData = await response.json()
+
+                setGraphData(graphData)
+            } catch (error) {
+                console.log('Error fetching graph data: ', error)
+            }
+        }
+
+        fetchGraphData()
+    }, [])
 
     return (
         <div className='page'>

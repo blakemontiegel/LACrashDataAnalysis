@@ -51,6 +51,10 @@ const Results = () => {
         }
     }
 
+    useEffect(() => {
+        fetchGraphData()
+    }, [])
+
     return (
         <div className='page'>
             <div className='page-text'>

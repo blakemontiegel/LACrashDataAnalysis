@@ -76,10 +76,10 @@ const Query2 = () => {
             <div className='selection-container'>
                 <div className='selection'>
                 <h2>Collision Severity: </h2>
-                        <label><input type="checkbox" name="collision severity" value="Fatal" onChange={handleCollisionSeverityChange} /> Fatal</label>
-                        <label><input type="checkbox" name="collision severity" value="Injury (Severe)" onChange={handleCollisionSeverityChange} /> Injury (Severe)</label>
-                        <label><input type="checkbox" name="collision severity" value="Injury (Other Visible)" onChange={handleCollisionSeverityChange} /> Injury (Other Visible)</label>
-                        <label><input type="checkbox" name="collision severity" value="Injury (Complaint of Pain)" onChange={handleCollisionSeverityChange} /> Injury (Complaint of Pain)</label>
+                        <label><input type="checkbox" name="collision severity" value="1" onChange={handleCollisionSeverityChange} /> Fatal</label>
+                        <label><input type="checkbox" name="collision severity" value="2" onChange={handleCollisionSeverityChange} /> Injury (Severe)</label>
+                        <label><input type="checkbox" name="collision severity" value="3" onChange={handleCollisionSeverityChange} /> Injury (Other Visible)</label>
+                        <label><input type="checkbox" name="collision severity" value="4" onChange={handleCollisionSeverityChange} /> Injury (Complaint of Pain)</label>
                 </div>
                 <div className='selection'>
                     <h2>Crash Type: </h2>

@@ -102,20 +102,20 @@ const Query1 = () => {
                 </div>
                 <div className='selection'>
                     <h2>Collision Severity: </h2>
-                        <label><input type="radio" name="collision severity" value="Fatal" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Fatal</label>
-                        <label><input type="radio" name="collision severity" value="Injury (Severe)" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
-                        <label><input type="radio" name="collision severity" value="Injury (Other Visible)" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
-                        <label><input type="radio" name="collision severity" value="Injury (Complaint of Pain)" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
+                        <label><input type="radio" name="collision severity" value="1" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Fatal</label>
+                        <label><input type="radio" name="collision severity" value="2" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Injury (Severe)</label>
+                        <label><input type="radio" name="collision severity" value="3" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Injury (Other Visible)</label>
+                        <label><input type="radio" name="collision severity" value="4" onChange={(event) => setSingleCollisionSeverity(event.target.value)} /> Injury (Complaint of Pain)</label>
                 </div>
                 <div className='selection'>
                     <h2>Weather Conditions: </h2>
-                    <label><input type="radio" name="weather" value="Clear" onChange={(event) => setWeatherCondition(event.target.value)} /> Clear</label>
-                    <label><input type="radio" name="weather" value="Cloudy" onChange={(event) => setWeatherCondition(event.target.value)} /> Cloudy</label>
-                    <label><input type="radio" name="weather" value="Raining" onChange={(event) => setWeatherCondition(event.target.value)} /> Raining</label>
-                    <label><input type="radio" name="weather" value="Snowing" onChange={(event) => setWeatherCondition(event.target.value)} /> Snowing</label>
-                    <label><input type="radio" name="weather" value="Fog" onChange={(event) => setWeatherCondition(event.target.value)} /> Fog</label>
-                    <label><input type="radio" name="weather" value="Wind" onChange={(event) => setWeatherCondition(event.target.value)} /> Wind</label>
-                    <label><input type="radio" name="weather" value="Other" onChange={(event) => setWeatherCondition(event.target.value)} /> Other</label>
+                    <label><input type="radio" name="weather" value="A" onChange={(event) => setWeatherCondition(event.target.value)} /> Clear</label>
+                    <label><input type="radio" name="weather" value="B" onChange={(event) => setWeatherCondition(event.target.value)} /> Cloudy</label>
+                    <label><input type="radio" name="weather" value="C" onChange={(event) => setWeatherCondition(event.target.value)} /> Raining</label>
+                    <label><input type="radio" name="weather" value="D" onChange={(event) => setWeatherCondition(event.target.value)} /> Snowing</label>
+                    <label><input type="radio" name="weather" value="E" onChange={(event) => setWeatherCondition(event.target.value)} /> Fog</label>
+                    <label><input type="radio" name="weather" value="F" onChange={(event) => setWeatherCondition(event.target.value)} /> Wind</label>
+                    <label><input type="radio" name="weather" value="G" onChange={(event) => setWeatherCondition(event.target.value)} /> Other</label>
                 </div>
                 <div className='time-interval-container selection'>
                     <h2>Time Interval: </h2>

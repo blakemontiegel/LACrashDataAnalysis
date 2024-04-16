@@ -7,6 +7,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser')
 const path = require('path')
 const { spawn } = require('child_process');
+const { PythonShell } = require('python-shell') 
 
 const app = express();
 
@@ -41,39 +42,27 @@ const executePython = async (pythonScriptPath, scriptArgs) => {
 
 }
 
-const executeTupleCount = async () => {
-    const pythonProcess = spawn('python', ['TupleRequirement.py'])
 
-    const result = await new Promise((resolve, reject) => {
-        let ouput;
+app.get('/api/tupleCount', (req, res) => {
+    const pythonProcess = spawn('python', ['./TupleRequirement.py']);
 
-        pythonProcess.stdout.on('data', (data) => {
-            output = JSON.parse(data)
-        })
+    pythonProcess.stdout.on('data', (data) => {
+        const tupleCount = data.toString().trim();
+        res.json({ total_tuples: tupleCount });
+    });
 
-        pythonProcess.stderr.on('data', (data) => {
-            console.error('[python] Error occured: ${data}')
-            reject('Error ocurred in ${script}')
-        })
-
-        pythonProcess.on('exit', (code) => {
-            console.log('Child process exited with code &{code}')
-            resolve(output)
-        })
-    })
-    return result
-}
-
-app.get('/api/tupleCount', async (req, res) => {
-    const result = await executeTupleCount()
-})
+    pythonProcess.stderr.on('data', (data) => {
+        console.error('Error executing Python script:', data.toString());
+        res.status(500).json({ error: 'Internal server error' });
+    });
+});
 
 app.post('/api/graphs', async (req, res) => {
     try {
         console.log('req body', req.body)
 
         const { vehicleTypes, collisionSeverities, singleCollisionSeverity, weatherCondition, fromQuery, startDate,
-            endDate, crashType, initialTime, finalTime, selectedCity1, selectedCity2, pcfViolations } = req.body
+            endDate, crashTypes, crashType, initialTime, finalTime, selectedCity1, selectedCity2, pcfViolations } = req.body
             
             let pythonScriptPath;
             let scriptArgs = [startDate, endDate];
@@ -84,7 +73,7 @@ app.post('/api/graphs', async (req, res) => {
                 const imageData = await executePython(pythonScriptPath, scriptArgs)
             } else if(fromQuery === 'query2') {
                 pythonScriptPath = './Query2.py'
-                const scriptArgs = [collisionSeverities, crashType]
+                const scriptArgs = [singleCollisionSeverity, crashTypes]
                 const imageData = await executePython(scriptArgs)
             }else if(fromQuery === 'query3') {
                 pythonScriptPath = './Query3.py'

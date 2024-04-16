@@ -1,25 +1,37 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
 const Welcome = () => {
     const [tupleCount, setTupleCount] = useState('')
 
     const handleClick = async () => {
+        
         try {
-            const response = await axios.get('/api/tupleCount')
-            setTupleCount(response.data)
+            const res = await fetch('/api/tupleCount', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // You can optionally include a request body if needed
+                // body: JSON.stringify({ /* Your request body if needed */ }),
+            });
+            if (!res.ok) {
+                throw new Error('Failed to fetch tuple count');
+            }
+    
+            const data = await res.json();
+            setTupleCount(data.total_tuples);
         } catch (error) {
-            console.error('Error retrieving tuple count', error)
+            console.error('Error retrieving tuple count', error);
         }
-    }
+    };
     return (
         <div className='page'>
             <div className='page-text'>
             {tupleCount ? (
                 <p>There are {tupleCount} tuples in the database</p>
             ) : (
-                <span className="material-symbols-outlined" title='Check Tuple Count'>info</span>
+                <span className="material-symbols-outlined" title='Check Tuple Count' onClick={handleClick}>info</span>
             )}
                 
 

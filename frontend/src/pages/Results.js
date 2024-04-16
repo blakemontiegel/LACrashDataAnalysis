@@ -5,7 +5,7 @@ const Results = () => {
     const location = useLocation()
     const { data } = location.state || {}
     const { vehicleTypes, collisionSeverities, singleCollisionSeverity, weatherCondition, fromQuery, startDate,
-        endDate, crashType, initialTime, finalTime, selectedCity1, selectedCity2, pcfViolations } = data || {}
+        endDate, crashTypes, crashType, initialTime, finalTime, selectedCity1, selectedCity2, pcfViolations } = data || {}
 
     var weatherConditionsDict = {
         'A': "Clear",
@@ -24,6 +24,32 @@ const Results = () => {
         '4': "Injury (Complaint of Pain)"
     }
 
+    var pcfViolationDict = {
+                    "1" : "Driving or Bicylcing Under the Influence of Alcohol or Drug",
+                    "2" : "Impeding Traffic",
+                    "3" : "Unsafe Speed",
+                    "4" : "Following Too Closely",
+                    "5" : "Wrong Side of Road",
+                    "6" : "Improper Passing",
+                    "7" : "Unsafe Lane Change",
+                    "8" : "Improper Turning",
+                    "9" : "Automobile Right of Way",
+                    "10": "Pedestrian Right of Way",
+                    "11": "Pedestrian Violation",
+                    "12": "Traffic Signals and Signs",
+                    "13": "Hazardous Parking",
+                    "14": "Lights",
+                    "15": "Brakes",
+                    "16": "Other Equipment",
+                    "17": "Other Hazardous Violation",
+                    "18": "Other Than Driver (or Pedestrian)",
+                    "21": "Unsafe Starting or Backing",
+                    "22": "Other Improper Driving",
+                    "23": "Pedestrian or Other Under the Influence of Alcohol or Drug",
+                    "24": "Fell Asleep",
+                    "0" : "Unknown"
+    }
+
     const isQuery1Page = fromQuery === 'query1'
     const isQuery2Page = fromQuery === 'query2'
     const isQuery3Page = fromQuery === 'query3'
@@ -35,6 +61,8 @@ const Results = () => {
     const fetchGraphData = async () => {
         try {
             const vehicleTypesString = vehicleTypes.join(',')
+            const crashTypesString = crashTypes.join(',')
+            const pcfViolationsString = pcfViolations.join(',')
 
             const res = await fetch('/api/graphs', {
                 method: 'POST',
@@ -49,12 +77,13 @@ const Results = () => {
                     fromQuery,
                     startDate,
                     endDate,
+                    crashTypes: crashTypesString,
                     crashType,
                     initialTime,
                     finalTime,
                     selectedCity1,
                     selectedCity2,
-                    pcfViolations
+                    pcfViolations: pcfViolationsString
                 }),
             })
             if(!res.ok) {
@@ -72,7 +101,7 @@ const Results = () => {
         fetchGraphData()
         const fetchImage = async () => {
             try {
-                const response = await fetch('images/Query1Result.png'); // Replace with your backend URL
+                const response = await fetch('images/Query1Result.png');
                 if (!response.ok) {
                     throw new Error('Failed to fetch image');
                 }
@@ -132,10 +161,6 @@ const Results = () => {
                         <div className='graph-section'>
                             <img src={graphData} alt="Graph 1"/>
                         </div>
-                    {/* Data represented in graph*/}
-                        <div className='data-section'>
-                            <h2>Data represented in the graph</h2>
-                        </div>
                     </div>
                     </>
                 )
@@ -150,19 +175,19 @@ const Results = () => {
                         Examine the relationship between crash severity levels (minor, moderate, severe, fatal) and types (rear-end, side-impact, pedestrian-involved etc.) in order to identify conditions that most frequently lead to severe outcomes.
                         </h2>
                     </div>
-                    <div className='selection-results-container'>
+                    <div className='results-page'>
                     {/* Selected Conditions */}
-                        <div className='selection-results'>
+                        <div className='selected-conditions'>
                             <h2>Selected Conditions: </h2>
                             <h3>-Collision Severity:</h3>
                             <p>
-                                {collisionSeverities.map((type, index) => (
-                                    <li key={index}>{collisionSeverityDict[type]}</li>
-                                ))}
+                                {collisionSeverityDict[singleCollisionSeverity]}
                             </p>
                             <h3>-Crash Type:</h3>
                             <p>
-                                {crashType}
+                                {crashTypes.map((type, index) => (
+                                    <li key={index}>{type}</li>
+                                ))}
                             </p>
                             <h3>-Time Frame: </h3>
                             <p>
@@ -170,12 +195,8 @@ const Results = () => {
                             </p>
                         </div> 
                     {/* GRAPH (replace with graph)*/}
-                        <div className='selection-results-graph'>
+                        <div className='graph-section'>
                             <h1>GRAPH</h1>
-                        </div>
-                    {/* Data represented in graph*/}
-                        <div className='selection-results'>
-                            <h2>Data represented in the graph</h2>
                         </div>
                     </div>
                     </>
@@ -190,9 +211,9 @@ const Results = () => {
                         Determine and compare the average number of people injured in crashes throughout the times of day in Los Angeles county between 2013 and 2022. Allow comparisons to be made across the number of parties involved and time of day.
                         </h2>
                     </div>
-                    <div className='selection-results-container'>
+                    <div className='results-page'>
                     {/* Selected Conditions */}
-                        <div className='selection-results'>
+                        <div className='selected-conditions'>
                             <h2>Selected Conditions: </h2>
                             <h3>-Collision Time:</h3>
                             <p>
@@ -204,12 +225,8 @@ const Results = () => {
                             </p>
                         </div> 
                     {/* GRAPH (replace with graph)*/}
-                        <div className='selection-results-graph'>
+                        <div className='graph-section'>
                             <h1>GRAPH</h1>
-                        </div>
-                    {/* Data represented in graph*/}
-                        <div className='selection-results'>
-                            <h2>Data represented in the graph</h2>
                         </div>
                     </div>
                     </>
@@ -224,9 +241,9 @@ const Results = () => {
                         Evaluate and compare the crash frequency and severity for different cities (or neighborhoods) within Los Angeles county have evolved between 2013 and 2022. In addition, allow that the frequency and severity of crashes be compared between the cities.
                         </h2>
                     </div>
-                    <div className='selection-results-container'>
+                    <div className='results-page'>
                     {/* Selected Conditions */}
-                        <div className='selection-results'>
+                        <div className='selected-conditions'>
                             <h2>Selected Conditions: </h2>
                             <h3>-Collision Severity:</h3>
                             <p>
@@ -242,12 +259,8 @@ const Results = () => {
                             </p>
                         </div> 
                     {/* GRAPH (replace with graph)*/}
-                        <div className='selection-results-graph'>
+                        <div className='graph-section'>
                             <h1>GRAPH</h1>
-                        </div>
-                    {/* Data represented in graph*/}
-                        <div className='selection-results'>
-                            <h2>Data represented in the graph</h2>
                         </div>
                     </div>
                     </>
@@ -262,14 +275,14 @@ const Results = () => {
                         Evaluate how PCF violations such as the involvement of speeding, alcohol (DUI), following too closely, improper lane changes, and more have grown more or less frequent over time in Los Angeles county.
                         </h2>
                     </div>
-                    <div className='selection-results-container'>
+                    <div className='results-page'>
                     {/* Selected Conditions */}
-                        <div className='selection-results'>
+                        <div className='selected-conditions'>
                             <h2>Selected Conditions: </h2>
                             <h3>-PCF Violations:</h3>
                             <p>
                                 {pcfViolations.map((type, index) => (
-                                    <li key={index}>{type}</li>
+                                    <li key={index}>{pcfViolationDict[type]}</li>
                                 ))}
                             </p>
                             <h3>-Time Frame: </h3>
@@ -278,12 +291,8 @@ const Results = () => {
                             </p>
                         </div> 
                     {/* GRAPH (replace with graph)*/}
-                        <div className='selection-results-graph'>
+                        <div className='graph-section'>
                             <h1>GRAPH</h1>
-                        </div>
-                    {/* Data represented in graph*/}
-                        <div className='selection-results'>
-                            <h2>Data represented in the graph</h2>
                         </div>
                     </div>
                     </>

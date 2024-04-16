@@ -1,29 +1,45 @@
+from flask import Flask, jsonify
 import oracledb
 import pandas as pd
 
-username = 'blakemontiegel'
-password = 'lMQepNByzGppFPtHUasKwhty'
-dsn = 'oracle.cise.ufl.edu/orcl'
-connection = oracledb.connect(user=username, password=password, dsn=dsn)
-cursor = connection.cursor()
+app = Flask(__name__)
 
-def execute_query(sql):
-    cursor.execute(sql)
-    columns = [col[0] for col in cursor.description]
-    data = pd.DataFrame(cursor.fetchall(), columns=columns)
-    return data
+@app.route('/api/tupleCount')
+def tuple_count():
+    try:
+        result = get_total_tuples()
+        if result is None:
+            return jsonify({'error': 'No data retrieved'})
+        return result
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
-sql_tuples = """
-SELECT SUM(total_count) AS total_tuples
-FROM (
-    SELECT COUNT(*) AS total_count FROM zhouxiangyu.CRASHES
-    UNION ALL
-    SELECT COUNT(*) AS total_count FROM zhouxiangyu.INVOLVEDPARTIES
-)
-"""
+def get_total_tuples():
+    try:
+        sql_tuples = """
+        SELECT SUM(total_count) AS total_tuples
+        FROM (
+            SELECT COUNT(*) AS total_count FROM zhouxiangyu.CRASHES
+            UNION ALL
+            SELECT COUNT(*) AS total_count FROM zhouxiangyu.INVOLVEDPARTIES
+        )
+        """
 
-data1 = execute_query(sql_tuples)
-total_tuples = data1['TOTAL_TUPLES'].iloc[0]
-
-cursor.close()
-connection.close()
+        with oracledb.connect(user='blakemontiegel', password='lMQepNByzGppFPtHUasKwhty', dsn='oracle.cise.ufl.edu/orcl') as connection:
+            cursor = connection.cursor()
+            cursor.execute(sql_tuples)
+            columns = [col[0] for col in cursor.description]
+            data = pd.DataFrame(cursor.fetchall(), columns=columns)
+            if data.empty:
+                return None
+            total_tuples = data['TOTAL_TUPLES'].iloc[0]
+            print(f"Total tuples: {total_tuples}")  # Print total tuples value
+            return jsonify({'total_tuples': total_tuples})
+    except oracledb.DatabaseError as e:
+        # Print database error
+        print(f"Database error: {e}")
+        return None
+    except Exception as e:
+        # Print any other errors
+        print(f"Error: {e}")
+        return None

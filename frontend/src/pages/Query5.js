@@ -66,29 +66,29 @@ const Query5 = () => {
                 {
                 <div className='selection'>
                 <h2>PCF Violations: </h2>
-                    <label><input type="checkbox" value="Driving or Bicycling Under the Influence of Alcohol or Drug" onChange={handlePCFViolationChange} /> Driving or Bicycling Under the Influence of Alcohol or Drug</label>
-                    <label><input type="checkbox" value="Impeding Traffic" onChange={handlePCFViolationChange} /> Impeding Traffic</label>
-                    <label><input type="checkbox" value="Unsafe speed" onChange={handlePCFViolationChange} /> Unsafe Speed</label>
-                    <label><input type="checkbox" value="Following Too Closely" onChange={handlePCFViolationChange} /> Following Too Closely</label>
-                    <label><input type="checkbox" value="Wrong Side of Road" onChange={handlePCFViolationChange} /> Wrong Side of Road</label>
-                    <label><input type="checkbox" value="Improper Passing" onChange={handlePCFViolationChange} /> Improper Passing</label>
-                    <label><input type="checkbox" value="Unsafe Lange Change" onChange={handlePCFViolationChange} /> Unsafe Lane Change</label>
-                    <label><input type="checkbox" value="Improper Turning" onChange={handlePCFViolationChange} /> Improper Turning</label>
-                    <label><input type="checkbox" value="Automobile Right of Way" onChange={handlePCFViolationChange} /> Automobile Right of Way</label>
-                    <label><input type="checkbox" value="Pedestrian Right of Way" onChange={handlePCFViolationChange} /> Pedestrian Right of Way</label>
-                    <label><input type="checkbox" value="Pedestrian Violation" onChange={handlePCFViolationChange} /> Pedestrian Violation</label>
-                    <label><input type="checkbox" value="Traffic Signals and Signs" onChange={handlePCFViolationChange} /> Traffic Signals and Signs</label>
-                    <label><input type="checkbox" value="Hazardous Parking" onChange={handlePCFViolationChange} /> Hazardous Parking</label>
-                    <label><input type="checkbox" value="Lights" onChange={handlePCFViolationChange} /> Lights</label>
-                    <label><input type="checkbox" value="Brakes" onChange={handlePCFViolationChange} /> Brakes</label>
-                    <label><input type="checkbox" value="Other Equipment" onChange={handlePCFViolationChange} /> Other Equipment</label>
-                    <label><input type="checkbox" value="Other Hazardous Violation" onChange={handlePCFViolationChange} /> Other Hazardous Violation</label>
-                    <label><input type="checkbox" value="Other Than Driver (or Pedestrian)" onChange={handlePCFViolationChange} /> Other Than Driver (or Pedestrian)</label>
-                    <label><input type="checkbox" value="Unsafe Starting or Backing" onChange={handlePCFViolationChange} /> Unsafe Starting or Backing</label>
-                    <label><input type="checkbox" value="Other Improper Driving" onChange={handlePCFViolationChange} /> Other Improper Driving</label>
-                    <label><input type="checkbox" value="Pedestrian or Other Under the Influence of Alcohol or Drug" onChange={handlePCFViolationChange} /> Pedestrian or Other Under the Influence of Alcohol or Drug</label>
-                    <label><input type="checkbox" value="Fell Asleep" onChange={handlePCFViolationChange} /> Fell Asleep</label>
-                    <label><input type="checkbox" value="Unknown" onChange={handlePCFViolationChange} /> Unknown</label>
+                    <label><input type="checkbox" value="1" onChange={handlePCFViolationChange} /> Driving or Bicylcing Under the Influence of Alcohol or Drug</label>
+                    <label><input type="checkbox" value="2" onChange={handlePCFViolationChange} /> Impeding Traffic</label>
+                    <label><input type="checkbox" value="3" onChange={handlePCFViolationChange} /> Unsafe Speed</label>
+                    <label><input type="checkbox" value="4" onChange={handlePCFViolationChange} /> Following Too Closely</label>
+                    <label><input type="checkbox" value="5" onChange={handlePCFViolationChange} /> Wrong Side of Road</label>
+                    <label><input type="checkbox" value="6" onChange={handlePCFViolationChange} /> Improper Passing</label>
+                    <label><input type="checkbox" value="7" onChange={handlePCFViolationChange} /> Unsafe Lane Change</label>
+                    <label><input type="checkbox" value="8" onChange={handlePCFViolationChange} /> Improper Turning</label>
+                    <label><input type="checkbox" value="9" onChange={handlePCFViolationChange} /> Automobile Right of Way</label>
+                    <label><input type="checkbox" value="10" onChange={handlePCFViolationChange} /> Pedestrian Right of Way</label>
+                    <label><input type="checkbox" value="11" onChange={handlePCFViolationChange} /> Pedestrian Violation</label>
+                    <label><input type="checkbox" value="12" onChange={handlePCFViolationChange} /> Traffic Signals and Signs</label>
+                    <label><input type="checkbox" value="13" onChange={handlePCFViolationChange} /> Hazardous Parking</label>
+                    <label><input type="checkbox" value="14" onChange={handlePCFViolationChange} /> Lights</label>
+                    <label><input type="checkbox" value="15" onChange={handlePCFViolationChange} /> Brakes</label>
+                    <label><input type="checkbox" value="16" onChange={handlePCFViolationChange} /> Other Equipment</label>
+                    <label><input type="checkbox" value="17" onChange={handlePCFViolationChange} /> Other Hazardous Violation</label>
+                    <label><input type="checkbox" value="18" onChange={handlePCFViolationChange} /> Other Than Driver (or Pedestrian)</label>
+                    <label><input type="checkbox" value="21" onChange={handlePCFViolationChange} /> Unsafe Starting or Backing</label>
+                    <label><input type="checkbox" value="22" onChange={handlePCFViolationChange} /> Other Improper Driving</label>
+                    <label><input type="checkbox" value="23" onChange={handlePCFViolationChange} /> Pedestrian or Other Under the Influence of Alcohol or Drug</label>
+                    <label><input type="checkbox" value="24" onChange={handlePCFViolationChange} /> Fell Asleep</label>
+                    <label><input type="checkbox" value="0" onChange={handlePCFViolationChange} /> Unknown</label>
                 </div>
                 }
                 <div className='time-interval-container selection'>

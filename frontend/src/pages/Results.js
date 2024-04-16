@@ -93,7 +93,7 @@ const Results = () => {
                         </div> 
                     {/* GRAPH (replace with graph)*/}
                         <div className='graph-section'>
-                            {graphData && <img src={graphData} alt='Graph'/>}
+                            <img src="./backend/QueryGraphImages/Query1Result.png" alt="Graph 1" width="300" height="300"></img>
                         </div>
                     {/* Data represented in graph*/}
                         <div className='data-section'>

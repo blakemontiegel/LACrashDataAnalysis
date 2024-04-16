@@ -47,7 +47,8 @@ def plot_line_chart(data, x, y, hue, title, weather_code):
     plt.legend(title='Vehicle Type', loc='upper left', bbox_to_anchor=(1.0, 1.0), fontsize='small')
     plt.grid(True)
     plt.tight_layout()
-    plt.show()
+    plt.savefig("QueryGraphImages/Query1Result.png")
+    plt.close()
 
 # User input handling
 weather_code = weatherCondition

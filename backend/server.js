@@ -13,7 +13,7 @@ const app = express();
 
 app.use(cors())
 app.use(bodyParser.json());
-app.use('/images', express.static(path.join(__dirname, 'QueryGraphImages')))
+app.use('/images', express.static(path.join(__dirname, '/QueryGraphImages')))
 
 const executePython = async (pythonScriptPath, scriptArgs) => {
 
@@ -65,37 +65,25 @@ app.post('/api/graphs', async (req, res) => {
             endDate, crashTypes, crashType, initialTime, finalTime, selectedCity1, selectedCity2, pcfViolations } = req.body
             
             let pythonScriptPath;
-            let scriptArgs = [startDate, endDate];
+            let scriptArgs = []
             
             if(fromQuery === 'query1') {
                 pythonScriptPath = './Query1.py'
-                scriptArgs.push(vehicleTypes, singleCollisionSeverity, weatherCondition)
-                const imageData = await executePython(pythonScriptPath, scriptArgs)
+                scriptArgs = [startDate, endDate, vehicleTypes, singleCollisionSeverity, weatherCondition]
             } else if(fromQuery === 'query2') {
                 pythonScriptPath = './Query2.py'
-                const scriptArgs = [singleCollisionSeverity, crashTypes]
-                const imageData = await executePython(scriptArgs)
+                scriptArgs = [startDate, endDate, singleCollisionSeverity, crashTypes]
             }else if(fromQuery === 'query3') {
                 pythonScriptPath = './Query3.py'
                 scriptArgs[initialTime, finalTime]
             }else if(fromQuery === 'query4') {
                 pythonScriptPath = './Query4.py'
-                scriptArgs[singleCollisionSeverity, selectedCity1, selectedCity2]
+                scriptArgs = [singleCollisionSeverity, selectedCity1, selectedCity2]
             }else if(fromQuery === 'query5') {
                 pythonScriptPath = './Query5.py'
-                scriptArgs[pcfViolations]
+                scriptArgs = [pcfViolations]
             }
-    
-            const pythonProcess = spawn('python', [pythonScriptPath, ...scriptArgs])
-
-            pythonProcess.stdout.on('data', (data) => {
-                res.send(data)
-            })
-
-            pythonProcess.stderr.on('data', (data) => {
-                console.error('Error executing Python script: ${data}')
-                res.status(500).json({error: 'Internal server error'})
-            })
+            const imageData = await executePython(pythonScriptPath, scriptArgs)
 
     } catch (error) {
         console.error('Error processing request: ', error);

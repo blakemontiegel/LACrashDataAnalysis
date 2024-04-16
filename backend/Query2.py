@@ -14,7 +14,7 @@ startDate = sys.argv[1]
 endDate = sys.argv[2]
 singleCollisionSeverity = sys.argv[3]
 crashTypes = sys.argv[4]
-
+print("hi")
 # Collision type and severity descriptions
 collision_types = {
     'A': 'Head-On',
@@ -89,5 +89,3 @@ def main():
     cursor.close()
     connection.close()
 
-if __name__ == '__main__':
-    main()

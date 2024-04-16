@@ -60,9 +60,9 @@ const Results = () => {
 
     const fetchGraphData = async () => {
         try {
-            const vehicleTypesString = vehicleTypes.join(',')
-            const crashTypesString = crashTypes.join(',')
-            const pcfViolationsString = pcfViolations.join(',')
+            const vehicleTypesString = vehicleTypes ? vehicleTypes.join(',') : '';
+            const crashTypesString = crashTypes ? crashTypes.join(',') : '';
+            const pcfViolationsString = pcfViolations ? pcfViolations.join(',') : '';
 
             const res = await fetch('/api/graphs', {
                 method: 'POST',
@@ -99,9 +99,10 @@ const Results = () => {
 
     useEffect(() => {
         fetchGraphData()
+        if(fromQuery === "query1") {
         const fetchImage = async () => {
             try {
-                const response = await fetch('images/Query1Result.png');
+                const response = await fetch('images/Query1Result.png'); // Replace with your backend URL
                 if (!response.ok) {
                     throw new Error('Failed to fetch image');
                 }
@@ -119,6 +120,29 @@ const Results = () => {
                 URL.revokeObjectURL(graphData);
             }
         };
+        }
+        if(fromQuery === "query2") {
+            const fetchImage = async () => {
+                try {
+                    const response = await fetch('/images/Query2Result.png'); // Replace with your backend URL
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch image');
+                    }
+                    const blob = await response.blob();
+                    const url = URL.createObjectURL(blob);
+                    setGraphData(url);
+                } catch (error) {
+                    console.error('Error fetching image:', error);
+                }
+            };
+    
+            fetchImage();
+            return () => {
+                if (graphData) {
+                    URL.revokeObjectURL(graphData);
+                }
+            };
+        }
     }, [])
 
     return (
@@ -196,7 +220,7 @@ const Results = () => {
                         </div> 
                     {/* GRAPH (replace with graph)*/}
                         <div className='graph-section'>
-                            <h1>GRAPH</h1>
+                            <img src={graphData} alt="Graph 2"/>
                         </div>
                     </div>
                     </>

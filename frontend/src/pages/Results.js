@@ -62,7 +62,7 @@ const Results = () => {
             }
 
             const imageData = await res.blob()
-            setGraphData('/backend/QueryGraphImages/Query1Result.png')
+            setGraphData('/QueryGraphImages')
         } catch (error) {
             console.log('Error fetching graph data: ', error)
         }
@@ -70,6 +70,26 @@ const Results = () => {
 
     useEffect(() => {
         fetchGraphData()
+        const fetchImage = async () => {
+            try {
+                const response = await fetch('images/Query1Result.png'); // Replace with your backend URL
+                if (!response.ok) {
+                    throw new Error('Failed to fetch image');
+                }
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                setGraphData(url);
+            } catch (error) {
+                console.error('Error fetching image:', error);
+            }
+        };
+
+        fetchImage();
+        return () => {
+            if (graphData) {
+                URL.revokeObjectURL(graphData);
+            }
+        };
     }, [])
 
     return (
@@ -137,7 +157,7 @@ const Results = () => {
                             <h3>-Collision Severity:</h3>
                             <p>
                                 {collisionSeverities.map((type, index) => (
-                                    <li key={index}>{type}</li>
+                                    <li key={index}>{collisionSeverityDict[type]}</li>
                                 ))}
                             </p>
                             <h3>-Crash Type:</h3>

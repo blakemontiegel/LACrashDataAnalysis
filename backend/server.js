@@ -5,12 +5,14 @@ const oracle = require('oracledb');
 const cors = require('cors');
 const fs = require('fs');
 const bodyParser = require('body-parser')
+const path = require('path')
 const { spawn } = require('child_process');
 
 const app = express();
 
 app.use(cors())
 app.use(bodyParser.json());
+app.use('/images', express.static(path.join(__dirname, 'QueryGraphImages')))
 
 const executePython = async (pythonScriptPath, scriptArgs) => {
 

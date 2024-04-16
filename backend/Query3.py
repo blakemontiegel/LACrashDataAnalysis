@@ -1,13 +1,20 @@
-import cx_Oracle
+import oracledb
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
 
 # Database connection details
-username = 'greeneryan'
-password = 'v51VjDsYBoITgSY0FBrv18sg'
+username = 'blakemontiegel'
+password = 'lMQepNByzGppFPtHUasKwhty'
 dsn = 'oracle.cise.ufl.edu/orcl'
-connection = cx_Oracle.connect(username, password, dsn)
+connection = oracledb.connect(user=username, password=password, dsn=dsn)
 cursor = connection.cursor()
+
+startDate = sys.argv[1]
+endDate = sys.argv[2]
+initialTime = sys.argv[3]
+finalTime = sys.argv[4]
+
 
 def execute_query(sql, params=None):
     cursor.execute(sql, params or {})
@@ -15,19 +22,7 @@ def execute_query(sql, params=None):
     data = pd.DataFrame(cursor.fetchall(), columns=columns)
     return data
 
-def get_time_range():
-    time_ranges = [
-        '00:00~02:59', '03:00~05:59', '06:00~08:59', 
-        '09:00~11:59', '12:00~14:59', '15:00~17:59', 
-        '18:00~20:59', '21:00~23:59', '25:00 - Unknown'
-    ]
-    print("Available time ranges:")
-    for tr in time_ranges:
-        print(tr)
-    selected_range = input("Enter a time range from the list above: ")
-    return selected_range
-
-def plot_data(data, selected_range):
+def plot_data(data):
     if data.empty:
         print("No data available to plot.")
         return
@@ -37,17 +32,17 @@ def plot_data(data, selected_range):
         subset = data[data['PARTYSIZE'] == party_size]
         plt.plot(subset['YEAR'], subset['AVGINJURED'], marker='o', label=f'Party Size {party_size}')
     
-    plt.title(f'Average Number of Injured by Party Size Over Time (Selected time: {selected_range})')
     plt.xlabel('Year')
     plt.ylabel('Average Number of People Injured')
     plt.legend(title='Party Size')
     plt.grid(True)
     plt.tight_layout()
-    plt.show()
+    plt.savefig("QueryGraphImages/Query3Result.png")
+    plt.close()
 
 def main():
-    selected_range = get_time_range()
-    start_time, end_time = selected_range.split('~')
+    start_time = initialTime
+    end_time = finalTime
 
     sql_query = """
     WITH PartySizes AS (
@@ -71,7 +66,7 @@ def main():
 
     params = {'start_time': start_time.strip(), 'end_time': end_time.strip().split(' ')[0]}
     data = execute_query(sql_query, params)
-    plot_data(data, selected_range)
+    plot_data(data)
 
     cursor.close()
     connection.close()

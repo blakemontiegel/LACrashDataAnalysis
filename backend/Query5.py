@@ -1,13 +1,19 @@
-import cx_Oracle
+import oracledb
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
 
 # Database connection details
-username = 'greeneryan'
-password = 'v51VjDsYBoITgSY0FBrv18sg'
+username = 'blakemontiegel'
+password = 'lMQepNByzGppFPtHUasKwhty'
 dsn = 'oracle.cise.ufl.edu/orcl'
-connection = cx_Oracle.connect(username, password, dsn)
+connection = oracledb.connect(user=username, password=password, dsn=dsn)
 cursor = connection.cursor()
+
+startDate = sys.argv[1]
+endDate = sys.argv[2]
+pcfViolation = sys.argv[3]
+
 
 def execute_query(sql, params=None):
     cursor.execute(sql, params or {})
@@ -16,7 +22,6 @@ def execute_query(sql, params=None):
     return data
 
 def get_user_input():
-    print("Available PCF Violation Codes and Descriptions:")
     violations = {
         "-": "Not Stated",
         "00": "Unknown",
@@ -45,11 +50,9 @@ def get_user_input():
         "23": "Pedestrian or Other Under the Influence of Alcohol or Drug",
         "24": "Fell Asleep"
     }
-    for code, description in violations.items():
-        print(f"{code}: {description}")
-    selected_violations = input("Enter violation codes separated by commas (e.g., 01, 03, 05): ").split(', ')
-    start_year = input("Enter start year (2013-2022, leave blank for no limit): ")
-    end_year = input("Enter end year (2013-2022, leave blank for no limit): ")
+    selected_violations = pcfViolation.split(', ')
+    start_year = startDate[:4]
+    end_year = endDate[:4]
 
     return selected_violations, start_year, end_year
 
@@ -63,12 +66,12 @@ def plot_data(data, violations):
         subset = data[data['VIOLATIONCATEGORY'] == violation]
         plt.plot(subset['YEAR'], subset['NUM_VIOLATIONS'], label=violations[violation])
 
-    plt.title("Trends of Various PCF Violations Over Time")
     plt.xlabel('Year')
     plt.ylabel('Frequency of Violations')
     plt.legend(title="Violation Codes")
     plt.grid(True)
-    plt.show()
+    plt.savefig("QueryGraphImages/Query5Result.png")
+    plt.close()
 
 def main():
     selected_violations, start_year, end_year = get_user_input()

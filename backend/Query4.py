@@ -1,13 +1,21 @@
-import cx_Oracle
+import oracledb
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
 
 # Database connection details
-username = 'greeneryan'
-password = 'v51VjDsYBoITgSY0FBrv18sg'
+username = 'blakemontiegel'
+password = 'lMQepNByzGppFPtHUasKwhty'
 dsn = 'oracle.cise.ufl.edu/orcl'
-connection = cx_Oracle.connect(username, password, dsn)
+connection = oracledb.connect(user=username, password=password, dsn=dsn)
 cursor = connection.cursor()
+
+startDate = sys.argv[1]
+endDate = sys.argv[2]
+singleCollisionSeverity = sys.argv[3]
+selectedCity1 = sys.argv[4]
+selectedCity2 = sys.argv[5]
+
 
 def execute_query(sql, params=None):
     cursor.execute(sql, params or {})
@@ -22,12 +30,7 @@ def get_user_input():
         '3': 'Injury (Other Visible)',
         '4': 'Injury (Complaint of Pain)'
     }
-    print("Select a severity level for the plot:")
-    for key, value in severity_levels.items():
-        print(f"{key}: {value}")
-    severity = input("Choose a severity level (1-4): ")
-
-    print("\nSelect two cities from the following list:")
+    severity = singleCollisionSeverity
     cities = [
         "UNINCORPORATED", "ALHAMBRA", "AGOURA HILLS", "ARCADIA", "ARTESIA", "AVALON", 
         "AZUSA", "BALDWIN PARK", "BELL", "BELL GARDENS", "BELLFLOWER", "BEVERLY HILLS",
@@ -46,14 +49,10 @@ def get_user_input():
         "SOUTH EL MONTE", "SOUTH GATE", "SOUTH PASADENA", "TEMPLE CITY", "TORRANCE",
         "VERNON", "WALNUT", "WEST COVINA", "WEST HOLLYWOOD", "WESTLAKE VILLAGE", "WHITTIER"
     ]
-    for i in range(0, len(cities), 3):
-        print(", ".join(cities[i:i+3]))
-
-    city1 = input("Enter the first city: ").upper()
-    city2 = input("Enter the second city: ").upper()
-
-    start_year = input("Enter start year (2013-2022, leave blank for no limit): ")
-    end_year = input("Enter end year (2013-2022, leave blank for no limit): ")
+    city1 = selectedCity1.upper()
+    city2 = selectedCity2.upper()
+    start_year = startDate[:4]
+    end_year = endDate[:4]
 
     return severity, city1, city2, start_year, end_year
 
@@ -74,13 +73,13 @@ def plot_data(data, severity, city1, city2):
         city_data = data[data['CITY'] == city]
         plt.plot(city_data['YEAR'], city_data['NUM_ACCIDENTS'], label=f"{city.title()}")
 
-    plt.title(f"Comparison of {severity_description[severity]} Collision Frequency Between {city1.title()} and {city2.title()}")
     plt.xlabel('Year')
     plt.ylabel('Frequency of Collisions')
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.show()
+    plt.savefig("QueryGraphImages/Query4Result.png")
+    plt.close()
 
 def main():
     severity, city1, city2, start_year, end_year = get_user_input()

@@ -1,13 +1,19 @@
-import cx_Oracle
+import oracledb
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
 
 # Database connection details
-username = 'greeneryan'
-password = 'v51VjDsYBoITgSY0FBrv18sg'
+username = 'blakemontiegel'
+password = 'lMQepNByzGppFPtHUasKwhty'
 dsn = 'oracle.cise.ufl.edu/orcl'
-connection = cx_Oracle.connect(username, password, dsn)
+connection = oracledb.connect(user=username, password=password, dsn=dsn)
 cursor = connection.cursor()
+
+startDate = sys.argv[1]
+endDate = sys.argv[2]
+singleCollisionSeverity = sys.argv[3]
+crashTypes = sys.argv[4]
 
 # Collision type and severity descriptions
 collision_types = {
@@ -44,28 +50,20 @@ def plot_query_2(data, severity_code):
     data_pivot = data.pivot_table(index='YEAR', columns='COLLISIONTYPE', values='FREQUENCY', aggfunc='sum').fillna(0)
     data_pivot.plot(kind='line')
     severity_description = severity_levels.get(severity_code, "Not Specified")
-    plt.title(f"Annual Frequency of Collision Types by Severity ({severity_description})")
     plt.xlabel('Year')
     plt.ylabel('Frequency')
     plt.legend(title='Collision Type', loc='upper left', bbox_to_anchor=(1.0, 1.0), fontsize='small')
     plt.grid(True)
     plt.tight_layout()
-    plt.show()
+    plt.savefig("QueryGraphImages/Query2Result.png")
+    plt.close()
 
 def main():
-    print("Enter the severity level for collision types:")
-    for code, desc in severity_levels.items():
-        print(f"{code} - {desc}")
-    severity = input("Select a severity level (1-4): ")
-
-    print("Collision Types (leave blank for all types):")
-    for code, desc in collision_types.items():
-        print(f"{code} - {desc}")
-    collision_types_input = input("Enter collision types separated by commas or leave blank for all: ").strip()
+    severity = singleCollisionSeverity
+    collision_types_input = crashTypes.strip()
     selected_types = collision_types_input.split(',') if collision_types_input else list(collision_types.keys())
-
-    start_year = input("Enter start year (or leave blank for no limit): ")
-    end_year = input("Enter end year (or leave blank for no limit): ")
+    start_year = startDate[:4]
+    end_year = endDate[:4]
 
     placeholders = ', '.join(f":type{i}" for i in range(len(selected_types)))
     sql_query_2 = f"""

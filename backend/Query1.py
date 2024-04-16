@@ -35,13 +35,12 @@ def execute_query(sql, params):
     data = pd.DataFrame(cursor.fetchall(), columns=columns)
     return data
 
-def plot_line_chart(data, x, y, hue, title, weather_code):
+def plot_line_chart(data, x, y, hue, weather_code):
     data_pivot = data.pivot_table(index=x, columns=hue, values=y, aggfunc='sum').fillna(0)
     data_pivot.plot(kind='line')
     
     # Use weather description in the title
     weather_description = weather_conditions.get(weather_code, "Not Specified")
-    plt.title(f"{title} (Weather Condition: {weather_description})")
     plt.xlabel('Year')
     plt.ylabel('Number of Accidents')
     plt.legend(title='Vehicle Type', loc='upper left', bbox_to_anchor=(1.0, 1.0), fontsize='small')
@@ -83,7 +82,7 @@ GROUP BY EXTRACT(YEAR FROM c.CRASHDATE), ip.VEHICLETYPE
 
 # Execute query and plot
 data1 = execute_query(sql_query_1, params)
-plot_line_chart(data1, 'YEAR', 'NUM_ACCIDENTS', 'VEHICLETYPE', 'Annual Accidents by Vehicle Type and Weather Condition', weather_code)
+plot_line_chart(data1, 'YEAR', 'NUM_ACCIDENTS', 'VEHICLETYPE', weather_code)
 
 cursor.close()
 connection.close()

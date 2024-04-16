@@ -130,7 +130,7 @@ const Results = () => {
                         </div> 
                     {/* GRAPH (replace with graph)*/}
                         <div className='graph-section'>
-                            <img src={graphData} alt="Graph 1" width="300" height="300"/>
+                            <img src={graphData} alt="Graph 1"/>
                         </div>
                     {/* Data represented in graph*/}
                         <div className='data-section'>

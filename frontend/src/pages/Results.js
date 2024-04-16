@@ -7,6 +7,23 @@ const Results = () => {
     const { vehicleTypes, collisionSeverities, singleCollisionSeverity, weatherCondition, fromQuery, startDate,
         endDate, crashType, initialTime, finalTime, selectedCity1, selectedCity2, pcfViolations } = data || {}
 
+    var weatherConditionsDict = {
+        'A': "Clear",
+        'B': "Cloudy",
+        'C': "Raining",
+        'D': "Snowing",
+        'E': "Fog",
+        'F': "Other",
+        'G': "Wind"
+    }
+
+    var collisionSeverityDict = {
+        '1': "Fatal",
+        '2': "Injury (Severe)",
+        '3': "Injury (Other Visible)",
+        '4': "Injury (Complaint of Pain)"
+    }
+
     const isQuery1Page = fromQuery === 'query1'
     const isQuery2Page = fromQuery === 'query2'
     const isQuery3Page = fromQuery === 'query3'
@@ -45,7 +62,7 @@ const Results = () => {
             }
 
             const imageData = await res.blob()
-            setGraphData(URL.createObjectURL(imageData))
+            setGraphData('/backend/QueryGraphImages/Query1Result.png')
         } catch (error) {
             console.log('Error fetching graph data: ', error)
         }
@@ -80,11 +97,11 @@ const Results = () => {
                             </p>
                             <h3>-Collision Severity:</h3>
                             <p>
-                                {singleCollisionSeverity}
+                                {collisionSeverityDict[singleCollisionSeverity]}
                             </p>
                             <h3>-Weather Condition:</h3>
                             <p>
-                                {weatherCondition}
+                                {weatherConditionsDict[weatherCondition]}
                             </p>
                             <h3>-Time Frame: </h3>
                             <p>
@@ -93,7 +110,7 @@ const Results = () => {
                         </div> 
                     {/* GRAPH (replace with graph)*/}
                         <div className='graph-section'>
-                            <img src="./backend/QueryGraphImages/Query1Result.png" alt="Graph 1" width="300" height="300"></img>
+                            <img src={graphData} alt="Graph 1" width="300" height="300"/>
                         </div>
                     {/* Data represented in graph*/}
                         <div className='data-section'>
@@ -193,7 +210,7 @@ const Results = () => {
                             <h2>Selected Conditions: </h2>
                             <h3>-Collision Severity:</h3>
                             <p>
-                                {singleCollisionSeverity}
+                                {collisionSeverityDict[singleCollisionSeverity]}
                             </p>
                             <h3>-Collision City:</h3>
                             <p>

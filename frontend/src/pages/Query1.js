@@ -78,7 +78,7 @@ const Query1 = () => {
                 <span className="material-symbols-outlined" title='Back to Welcome Page'>undo</span>
                 </Link> 
             <h2>
-                Determines and compares the influence of weather conditions on accidents involving user-specified vehicle types in Los Angeles between 2013 and 2022 considering: vehicle type, collision severity, and weather conditions.
+            Determines and compares the influence of weather conditions on accidents involving user-specified vehicle types considering vehicle type, collision severity, and weather conditions.
             </h2>
             </div>
             <div className='selection-container'>

@@ -152,7 +152,7 @@ const Query4 = () => {
                 <span className="material-symbols-outlined" title='Back to Welcome Page'>undo</span>
                 </Link> 
             <h2>
-                Evaluate and compare the crash frequency and severity for different cities (or neighborhoods) within Los Angeles county have evolved between 2013 and 2022. In addition, allow that the frequency and severity of crashes be compared between the cities.
+            Evaluates and compares the crash frequency and severity for different cities within Los Angeles county. Allows that the frequency and severity of crashes be compared between the cities.
             </h2>
             </div>
             <div className='selection-container'>

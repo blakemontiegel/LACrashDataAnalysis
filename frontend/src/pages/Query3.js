@@ -68,7 +68,7 @@ const Query3 = () => {
                 <span className="material-symbols-outlined" title='Back to Welcome Page'>undo</span>
                 </Link> 
             <h2>
-                Determine and compare the average number of people injured in crashes throughout the times of day in Los Angeles county between 2013 and 2022. Allow comparisons to be made across the number of parties involved and time of day.
+            Determines and compares the average number of people injured in crashes throughout the times of day. Allows comparisons to be made across the number of parties involved and time of day.
             </h2>
             </div>
             <div className='selection-container'>

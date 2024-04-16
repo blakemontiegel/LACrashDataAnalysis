@@ -59,7 +59,7 @@ const Query5 = () => {
                 <span className="material-symbols-outlined" title='Back to Welcome Page'>undo</span>
                 </Link> 
             <h2>
-                Evaluate how PCF violations such as the involvement of speeding, alcohol (DUI), following too closely, improper lane changes, and more have grown more or less frequent over time in Los Angeles county.
+            Evaluates how PCF violations, such as driving under the influence, have grown more or less common over time in Los Angeles county.
             </h2>
             </div>
             <div className='selection-container'>

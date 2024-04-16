@@ -70,7 +70,7 @@ const Query2 = () => {
                 <span className="material-symbols-outlined" title='Back to Welcome Page'>undo</span>
                 </Link> 
             <h2>
-                Examine the relationship between crash severity levels (minor, moderate, severe, fatal) and types (rear-end, side-impact, pedestrian-involved etc.) in order to identify conditions that most frequently lead to severe outcomes.
+            Examines the relationship between crash severity levels and crash types in order to identify conditions that most frequently lead to severe outcomes.
             </h2>
             </div>
             <div className='selection-container'>

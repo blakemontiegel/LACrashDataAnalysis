@@ -5,19 +5,11 @@ import sys
 
 # Passed in from the server.js file
 
-vehicleTypes = sys.argv[1]
-collisionSeverities = sys.argv[2]
-singleCollisionSeverity = sys.argv[3]
-weatherCondition = sys.argv[4]
-fromQuery = sys.argv[5]
-startDate = sys.argv[6]
-endDate = sys.argv[7]
-crashType = sys.argv[8]
-initialTime = sys.argv[9]
-finalTime = sys.argv[10]
-selectedCity1 = sys.argv[11]
-selectedCity2 = sys.argv[12]
-pcfViolations = sys.argv[13]
+startDate = sys.argv[1]
+endDate = sys.argv[2]
+vehicleTypes = sys.argv[3]
+singleCollisionSeverity = sys.argv[4]
+weatherCondition = sys.argv[5]
 
 # Database connection details
 username = 'blakemontiegel'
@@ -58,13 +50,11 @@ def plot_line_chart(data, x, y, hue, title, weather_code):
     plt.show()
 
 # User input handling
-print("Weather Condition Options:")
-for code, desc in weather_conditions.items():
-    print(f" {code} - {desc}")
-weather_code = input("Enter a weather condition (A-G): ")
-vehicle_types = input("Enter vehicle types separated by commas (e.g., Bicycle, Motorcycle/Scooter): ").split(',')
-start_year = input("Enter start year (or leave blank for no limit): ")
-end_year = input("Enter end year (or leave blank for no limit): ")
+weather_code = weatherCondition
+vehicle_types = vehicleTypes.split(',')
+start_year = startDate[:4]
+end_year = endDate[:4]
+single_collision_severity = singleCollisionSeverity
 
 # Prepare SQL query and parameters
 params = {}
@@ -72,6 +62,8 @@ where_conditions = ["ip.VEHICLETYPE IN ({})".format(", ".join([f":vtype{i}" for 
 params.update({f"vtype{i}": vtype.strip() for i, vtype in enumerate(vehicle_types)})
 where_conditions.append("c.WEATHERCONDITION1 = :weather")
 params['weather'] = weather_code
+where_conditions.append("c.COLLISIONSEVERITY = :severity")
+params['severity'] = single_collision_severity
 
 if start_year:
     where_conditions.append("EXTRACT(YEAR FROM c.CRASHDATE) >= :start_year")

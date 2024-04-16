@@ -17,13 +17,15 @@ const Results = () => {
 
     const fetchGraphData = async () => {
         try {
+            const vehicleTypesString = vehicleTypes.join(',')
+
             const res = await fetch('/api/graphs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    vehicleTypes,
+                    vehicleTypes: vehicleTypesString,
                     collisionSeverities,
                     singleCollisionSeverity,
                     weatherCondition,

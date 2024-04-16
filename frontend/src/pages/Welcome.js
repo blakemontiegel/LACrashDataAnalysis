@@ -1,11 +1,28 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Welcome = () => {
+    const [tupleCount, setTupleCount] = useState('')
 
+    const handleClick = async () => {
+        try {
+            const response = await axios.get('/api/tupleCount')
+            setTupleCount(response.data)
+        } catch (error) {
+            console.error('Error retrieving tuple count', error)
+        }
+    }
     return (
         <div className='page'>
             <div className='page-text'>
+            {tupleCount ? (
+                <p>There are {tupleCount} tuples in the database</p>
+            ) : (
+                <span className="material-symbols-outlined" title='Check Tuple Count'>info</span>
+            )}
+                
+
             <h1>
                 Welcome to the Los Angeles County Vehicle Crash Data Analysis Application
             </h1>

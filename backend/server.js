@@ -38,7 +38,35 @@ const executePython = async (pythonScriptPath, scriptArgs) => {
             }
         })
     })
+
 }
+
+const executeTupleCount = async () => {
+    const pythonProcess = spawn('python', ['TupleRequirement.py'])
+
+    const result = await new Promise((resolve, reject) => {
+        let ouput;
+
+        pythonProcess.stdout.on('data', (data) => {
+            output = JSON.parse(data)
+        })
+
+        pythonProcess.stderr.on('data', (data) => {
+            console.error('[python] Error occured: ${data}')
+            reject('Error ocurred in ${script}')
+        })
+
+        pythonProcess.on('exit', (code) => {
+            console.log('Child process exited with code &{code}')
+            resolve(output)
+        })
+    })
+    return result
+}
+
+app.get('/api/tupleCount', async (req, res) => {
+    const result = await executeTupleCount()
+})
 
 app.post('/api/graphs', async (req, res) => {
     try {
@@ -54,20 +82,20 @@ app.post('/api/graphs', async (req, res) => {
                 pythonScriptPath = './Query1.py'
                 scriptArgs.push(vehicleTypes, singleCollisionSeverity, weatherCondition)
                 const imageData = await executePython(pythonScriptPath, scriptArgs)
-            } /*else if(fromQuery === 'query2') {
+            } else if(fromQuery === 'query2') {
                 pythonScriptPath = './Query2.py'
-                const scriptArgs = [startDate, endDate, collisionSeverities, crashType]
+                const scriptArgs = [collisionSeverities, crashType]
                 const imageData = await executePython(scriptArgs)
             }else if(fromQuery === 'query3') {
                 pythonScriptPath = './Query3.py'
-                scriptArgs[startDate, endDate, initialTime, finalTime]
+                scriptArgs[initialTime, finalTime]
             }else if(fromQuery === 'query4') {
                 pythonScriptPath = './Query4.py'
-                scriptArgs[startDate, endDate, singleCollisionSeverity, selectedCity1, selectedCity2]
+                scriptArgs[singleCollisionSeverity, selectedCity1, selectedCity2]
             }else if(fromQuery === 'query5') {
                 pythonScriptPath = './Query5.py'
-                scriptArgs[startDate, endDate, pcfViolations]
-            }*/
+                scriptArgs[pcfViolations]
+            }
     
             const pythonProcess = spawn('python', [pythonScriptPath, ...scriptArgs])
 

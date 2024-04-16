@@ -4,14 +4,17 @@ const express = require('express');
 const oracle = require('oracledb');
 const cors = require('cors');
 const fs = require('fs');
+const bodyParser = require('body-parser')
+const { spawn } = require('child_process');
 
 const app = express();
 
 app.use(cors())
+app.use(bodyParser.json());
 
-const executePython = async (scriptArgs) => {
+const executePython = async (pythonScriptPath, scriptArgs) => {
 
-    const pythonProcess = spawn('python', ['./Query1.py', ...scriptArgs])
+    const pythonProcess = spawn('python', [pythonScriptPath, ...scriptArgs])
 
     return new Promise((resolve, reject) => {
         let imageData = Buffer.from('')
@@ -21,7 +24,7 @@ const executePython = async (scriptArgs) => {
         })
 
         pythonProcess.stderr.on('data', (data) => {
-            console.error('Error executing Python script:', data.toSting())
+            console.error('Error executing Python script:', data.toString())
             reject(new Error('Error executing Python script'))
         })
 
@@ -37,16 +40,21 @@ const executePython = async (scriptArgs) => {
 
 app.post('/api/graphs', async (req, res) => {
     try {
+        console.log('req body', req.body)
+
         const { vehicleTypes, collisionSeverities, singleCollisionSeverity, weatherCondition, fromQuery, startDate,
             endDate, crashType, initialTime, finalTime, selectedCity1, selectedCity2, pcfViolations } = req.body
-
+            
+            let pythonScriptPath;
+            let scriptArgs = [startDate, endDate];
+            
             if(fromQuery === 'query1') {
                 pythonScriptPath = './Query1.py'
-                scriptArgs[startDate, endDate, vehicleTypes, singleCollisionSeverity, weatherCondition]
-                const imageData = await executePython(scriptArgs)
-            }else if(fromQuery === 'query2') {
+                scriptArgs.push(vehicleTypes, singleCollisionSeverity, weatherCondition)
+                const imageData = await executePython(pythonScriptPath, scriptArgs)
+            } /*else if(fromQuery === 'query2') {
                 pythonScriptPath = './Query2.py'
-                scriptArgs[startDate, endDate, collisionSeverities, crashType]
+                const scriptArgs = [startDate, endDate, collisionSeverities, crashType]
                 const imageData = await executePython(scriptArgs)
             }else if(fromQuery === 'query3') {
                 pythonScriptPath = './Query3.py'
@@ -57,7 +65,7 @@ app.post('/api/graphs', async (req, res) => {
             }else if(fromQuery === 'query5') {
                 pythonScriptPath = './Query5.py'
                 scriptArgs[startDate, endDate, pcfViolations]
-            }
+            }*/
     
             const pythonProcess = spawn('python', [pythonScriptPath, ...scriptArgs])
 
@@ -74,8 +82,6 @@ app.post('/api/graphs', async (req, res) => {
         console.error('Error processing request: ', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-
-    
 })
 
 app.listen(process.env.PORT, () => {

@@ -1,12 +1,12 @@
-import cx_Oracle
+import oracledb
 import pandas as pd
 import matplotlib.pyplot as plt
 
 # Database connection details
-username = 'greeneryan'
-password = 'v51VjDsYBoITgSY0FBrv18sg'
+username = 'blakemontiegel'
+password = 'lMQepNByzGppFPtHUasKwhty'
 dsn = 'oracle.cise.ufl.edu/orcl'
-connection = cx_Oracle.connect(username, password, dsn)
+connection = oracledb.connect(user=username, password=password, dsn=dsn)
 cursor = connection.cursor()
 
 # Weather condition descriptions

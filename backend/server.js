@@ -17,25 +17,25 @@ app.get('/api/graphs', (req, res) => {
 
         let pythonScriptPath;
         let scriptArgs = [];
-        const parsedVehicleTypes = JSON.parse(vehicleTypes);
+        /*const parsedVehicleTypes = JSON.parse(vehicleTypes);
         const parsedPcfViolations = JSON.parse(pcfViolations);
-        const parsedCollisionSeverities = JSON.parse(collisionSeverities);
+        const parsedCollisionSeverities = JSON.parse(collisionSeverities);*/
 
         if(fromQuery === 'query1') {
             pythonScriptPath = './Query1.py';
-            scriptArgs[startDate, endDate, parsedVehicleTypes, singleCollisionSeverity, weatherCondition];
+            scriptArgs[startDate, endDate, vehicleTypes, singleCollisionSeverity, weatherCondition];
         }else if(fromQuery === 'query2') {
             //pythonScriptPath = 'path/to/query2_script.py';
-            scriptArgs[startDate, endDate, parsedCollisionSeverities, crashType];
+            scriptArgs[startDate, endDate, collisionSeverities, crashType];
         }else if(fromQuery === 'query3') {
             //pythonScriptPath = 'path/to/query3_script.py';
-            scriptArgs[startDate, endDate, parsedVehicleTypes, initialTime, finalTime];
+            scriptArgs[startDate, endDate, initialTime, finalTime];
         }else if(fromQuery === 'query4') {
             //pythonScriptPath = 'path/to/query4_script.py';
             scriptArgs[startDate, endDate, singleCollisionSeverity, selectedCity1, selectedCity2];
         }else if(fromQuery === 'query5') {
             //pythonScriptPath = 'path/to/query5_script.py';
-            scriptArgs[startDate, endDate, parsedPcfViolations];
+            scriptArgs[startDate, endDate, pcfViolations];
         }
 
         const pythonProcess = spawn('python', [pythonScriptPath, ...scriptArgs]);

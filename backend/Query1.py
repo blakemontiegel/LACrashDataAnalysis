@@ -1,6 +1,23 @@
 import oracledb
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
+
+# Passed in from the server.js file
+
+vehicleTypes = sys.argv[1]
+collisionSeverities = sys.argv[2]
+singleCollisionSeverity = sys.argv[3]
+weatherCondition = sys.argv[4]
+fromQuery = sys.argv[5]
+startDate = sys.argv[6]
+endDate = sys.argv[7]
+crashType = sys.argv[8]
+initialTime = sys.argv[9]
+finalTime = sys.argv[10]
+selectedCity1 = sys.argv[11]
+selectedCity2 = sys.argv[12]
+pcfViolations = sys.argv[13]
 
 # Database connection details
 username = 'blakemontiegel'

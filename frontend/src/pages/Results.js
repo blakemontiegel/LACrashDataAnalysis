@@ -15,29 +15,39 @@ const Results = () => {
 
     const [graphData, setGraphData] = useState(null)
 
-    useEffect(() => {
-        // Frontend: Serialize the array into a string
-        const vehicleTypesString = JSON.stringify(vehicleTypes)
-        const pcfViolationsString = JSON.stringify(pcfViolations)
-        const collisionSeveritiesString = JSON.stringify(collisionSeverities)
-
-        const fetchGraphData = async () => {
-            try {
-                const response = await fetch(`/api/graphs?fromQuery=${fromQuery}&startDate=${startDate}&endDate=${endDate}&collisionSeverities=${collisionSeveritiesString}&singleCollisionSeverity=${singleCollisionSeverity}&weatherCondition=${weatherCondition}&crashType=${crashType}&initialTime=${initialTime}&finalTime=${finalTime}&selectedCity1=${selectedCity1}&selectedCity2=${selectedCity2}&vehicleTypes=${vehicleTypesString}&pcfViolations=${pcfViolationsString}`)
-                if(!response.ok) {
-                    throw new Error('Failed to fetch graph data')
-                }
-
-                const graphData = await response.json()
-
-                setGraphData(graphData)
-            } catch (error) {
-                console.log('Error fetching graph data: ', error)
+    const fetchGraphData = async () => {
+        try {
+            const res = await fetchGraphData('/api/graphs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    vehicleTypes, 
+                    collisionSeverities, 
+                    singleCollisionSeverity, 
+                    weatherCondition, 
+                    fromQuery, 
+                    startDate,
+                    endDate, 
+                    crashType, 
+                    initialTime, 
+                    finalTime, 
+                    selectedCity1, 
+                    selectedCity2, 
+                    pcfViolations
+                }),
+            })
+            if(!res.ok) {
+                throw new Error('Failed to fetch graph data')
             }
-        }
 
-        fetchGraphData()
-    }, [])
+            const graphData = await res.JSON()
+            setGraphData(graphData)
+        } catch (error) {
+            console.log('Error fetching graph data: ', error)
+        }
+    }
 
     return (
         <div className='page'>

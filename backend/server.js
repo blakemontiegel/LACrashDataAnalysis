@@ -9,8 +9,30 @@ const app = express();
 
 app.use(cors())
 
-const executePython = async (script, args) => {
+const executePython = async (scriptArgs) => {
 
+    const pythonProcess = spawn('python', ['./Query1.py', ...scriptArgs])
+
+    return new Promise((resolve, reject) => {
+        let imageData = Buffer.from('')
+
+        pythonProcess.stdout.on('data', (data) => {
+            imageData = Buffer.concat([imageData, data])
+        })
+
+        pythonProcess.stderr.on('data', (data) => {
+            console.error('Error executing Python script:', data.toSting())
+            reject(new Error('Error executing Python script'))
+        })
+
+        pythonProcess.on('close', (code) => {
+            if(code === 0) {
+                resolve(imageData)
+            } else {
+                reject(new Error(`Python script exited with code ${code}`))
+            }
+        })
+    })
 }
 
 app.post('/api/graphs', async (req, res) => {
@@ -19,27 +41,35 @@ app.post('/api/graphs', async (req, res) => {
             endDate, crashType, initialTime, finalTime, selectedCity1, selectedCity2, pcfViolations } = req.body
 
             if(fromQuery === 'query1') {
-                pythonScriptPath = './Query1.py';
-                scriptArgs[startDate, endDate, vehicleTypes, singleCollisionSeverity, weatherCondition];
+                pythonScriptPath = './Query1.py'
+                scriptArgs[startDate, endDate, vehicleTypes, singleCollisionSeverity, weatherCondition]
+                const imageData = await executePython(scriptArgs)
             }else if(fromQuery === 'query2') {
-                //pythonScriptPath = 'path/to/query2_script.py';
-                scriptArgs[startDate, endDate, collisionSeverities, crashType];
+                pythonScriptPath = './Query2.py'
+                scriptArgs[startDate, endDate, collisionSeverities, crashType]
+                const imageData = await executePython(scriptArgs)
             }else if(fromQuery === 'query3') {
-                //pythonScriptPath = 'path/to/query3_script.py';
-                scriptArgs[startDate, endDate, initialTime, finalTime];
+                pythonScriptPath = './Query3.py'
+                scriptArgs[startDate, endDate, initialTime, finalTime]
             }else if(fromQuery === 'query4') {
-                //pythonScriptPath = 'path/to/query4_script.py';
-                scriptArgs[startDate, endDate, singleCollisionSeverity, selectedCity1, selectedCity2];
+                pythonScriptPath = './Query4.py'
+                scriptArgs[startDate, endDate, singleCollisionSeverity, selectedCity1, selectedCity2]
             }else if(fromQuery === 'query5') {
-                //pythonScriptPath = 'path/to/query5_script.py';
-                scriptArgs[startDate, endDate, pcfViolations];
+                pythonScriptPath = './Query5.py'
+                scriptArgs[startDate, endDate, pcfViolations]
             }
     
-            const pythonProcess = spawn('python', [pythonScriptPath, ...scriptArgs]);
+            const pythonProcess = spawn('python', [pythonScriptPath, ...scriptArgs])
 
             pythonProcess.stdout.on('data', (data) => {
                 res.send(data)
             })
+
+            pythonProcess.stderr.on('data', (data) => {
+                console.error('Error executing Python script: ${data}')
+                res.status(500).json({error: 'Internal server error'})
+            })
+
     } catch (error) {
         console.error('Error processing request: ', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -47,43 +77,6 @@ app.post('/api/graphs', async (req, res) => {
 
     
 })
-
-app.get('/api/graphs', (req, res) => {
-
-        let pythonScriptPath;
-        let scriptArgs = [];
-        /*const parsedVehicleTypes = JSON.parse(vehicleTypes);
-        const parsedPcfViolations = JSON.parse(pcfViolations);
-        const parsedCollisionSeverities = JSON.parse(collisionSeverities);*/
-
-        if(fromQuery === 'query1') {
-            pythonScriptPath = './Query1.py';
-            scriptArgs[startDate, endDate, vehicleTypes, singleCollisionSeverity, weatherCondition];
-        }else if(fromQuery === 'query2') {
-            //pythonScriptPath = 'path/to/query2_script.py';
-            scriptArgs[startDate, endDate, collisionSeverities, crashType];
-        }else if(fromQuery === 'query3') {
-            //pythonScriptPath = 'path/to/query3_script.py';
-            scriptArgs[startDate, endDate, initialTime, finalTime];
-        }else if(fromQuery === 'query4') {
-            //pythonScriptPath = 'path/to/query4_script.py';
-            scriptArgs[startDate, endDate, singleCollisionSeverity, selectedCity1, selectedCity2];
-        }else if(fromQuery === 'query5') {
-            //pythonScriptPath = 'path/to/query5_script.py';
-            scriptArgs[startDate, endDate, pcfViolations];
-        }
-
-        const pythonProcess = spawn('python', [pythonScriptPath, ...scriptArgs]);
-
-        pythonProcess.stdout('data', (data) => {
-            res.send(data);
-        });
-
-        pythonProcess.stderr.on('data', (data) => {
-            console.error('Error executing Python script: ${data}');
-            res.status(500).json({error: 'Internal server error'});
-        });
-});
 
 app.listen(process.env.PORT, () => {
     console.log('listening to port', process.env.PORT);

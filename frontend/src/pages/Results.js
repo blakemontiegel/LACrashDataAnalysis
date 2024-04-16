@@ -17,24 +17,24 @@ const Results = () => {
 
     const fetchGraphData = async () => {
         try {
-            const res = await fetchGraphData('/api/graphs', {
+            const res = await fetch('/api/graphs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    vehicleTypes, 
-                    collisionSeverities, 
-                    singleCollisionSeverity, 
-                    weatherCondition, 
-                    fromQuery, 
+                    vehicleTypes,
+                    collisionSeverities,
+                    singleCollisionSeverity,
+                    weatherCondition,
+                    fromQuery,
                     startDate,
-                    endDate, 
-                    crashType, 
-                    initialTime, 
-                    finalTime, 
-                    selectedCity1, 
-                    selectedCity2, 
+                    endDate,
+                    crashType,
+                    initialTime,
+                    finalTime,
+                    selectedCity1,
+                    selectedCity2,
                     pcfViolations
                 }),
             })
@@ -42,8 +42,8 @@ const Results = () => {
                 throw new Error('Failed to fetch graph data')
             }
 
-            const graphData = await res.JSON()
-            setGraphData(graphData)
+            const imageData = await res.blob()
+            setGraphData(URL.createObjectURL(imageData))
         } catch (error) {
             console.log('Error fetching graph data: ', error)
         }
@@ -87,7 +87,7 @@ const Results = () => {
                         </div> 
                     {/* GRAPH (replace with graph)*/}
                         <div className='graph-section'>
-                            <h1>GRAPH</h1>
+                            {graphData && <img src={graphData} alt='Graph'/>}
                         </div>
                     {/* Data represented in graph*/}
                         <div className='data-section'>

@@ -188,46 +188,47 @@ form.login input[type="password"] {
 /* Results Page Layout */
 .results-page {
   display: flex;
-  flex-direction: column;
-  height: 100vh; /* Make the container take up the full height of the viewport */
-  padding: 0 20px; /* Add padding to the sides */
+  padding: 20px;
 }
 
 .selected-conditions {
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 260px;
   padding: 20px;
+  margin-right: 10px;
   color: #333;
-  width: 300px; /* Set a fixed width */
-  margin-bottom: 20px; /* Add space between selected conditions and graph */
 }
+
 .selected-conditions h2,
 .selected-conditions h3 {
-  margin-top: 0; /* Remove default margin */
-  margin-bottom: 10px; /* Add a custom margin */
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .graph-section {
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
   color: #333;
-  flex: 1; /* Take up remaining space */
-  display: flex;
-  justify-content: center; /* Center the graph horizontally */
-  align-items: center; /* Center the graph vertically */
 }
 
 .data-section {
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 260px;
   padding: 20px;
+  margin-left: 10px;
   color: #333;
-  flex: 0 0 300px; /* Set a fixed width */
-  margin-left: auto; /* Align to the right */
-  margin-bottom: 20px; /* Add space between data section and graph */
+}
+
+.data-section h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
